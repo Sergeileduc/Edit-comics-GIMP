@@ -13,19 +13,19 @@
 
     ;Sélectionner le centre de la page (sans les marges)
 	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
-  
+
 	;Sélection par couleur, dans la zone sans les marges (par intersection)
 	(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
-	
+
 	;Enlève les trous la sélection
 	(gimp-selection-flood image)
 
 	;Remplit la sélection de noir (couleur d'avant-plan)
 	(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
-	
+
 	; Déselectionne tout
 	;(gimp-selection-none image)
-	
+
 	;test
 	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
 	(gimp-displays-flush)
