@@ -1,10 +1,15 @@
 (define (script-fu-clean-zone-seuil-variable image drawable seuil)
 
+	;variable
+	(let* (
+		(drawable (car (gimp-image-active-drawable image)))
+		)
+
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
 	(gimp-context-set-sample-threshold-int seuil)
-	
+
 	;script
 	(gimp-image-get-selection image)
 	;(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
@@ -18,7 +23,7 @@
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
 
-)
+))
 
 (script-fu-register "script-fu-clean-zone-seuil-variable"
 	"<Image>/DCT-trad/3b) Clean zone - seuil variable"
