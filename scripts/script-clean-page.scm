@@ -47,5 +47,5 @@
 			SF-DRAWABLE "Current Layer" 0
 			SF-ADJUSTMENT _"Taille de la marge horizontale (en px)" '(120 0 300 1 10 0 0)
 			SF-ADJUSTMENT _"Taille de la marge verticale (en px)" '(140 0 300 1 10 0 0)
-			SF-ADJUSTMENT _"seuil de tolérance à la couleur (pour le blanc cassé par exemple)" '(5 0 30 1 10 0 0)
+			SF-ADJUSTMENT _"seuil de tolérance à la couleur (pour le blanc cassé par exemple)" '(0 0 30 1 10 0 0)
 )
