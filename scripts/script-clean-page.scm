@@ -13,19 +13,19 @@
 
     ;Sélectionner le centre de la page (sans les marges)
 	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
-  
+
 	;Sélection par couleur, dans la zone sans les marges (par intersection)
 	(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
-	
+
 	;Enlève les trous la sélection
 	(gimp-selection-flood image)
 
 	;Remplit la sélection de noir (couleur d'avant-plan)
 	(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
-	
+
 	; Déselectionne tout
 	;(gimp-selection-none image)
-	
+
 	;test
 	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
 	(gimp-displays-flush)
@@ -36,9 +36,9 @@
 ))
 
 (script-fu-register "script-fu-clean-page-seuil-variable"
-		    "<Image>/DCT-trad/4b) Clean page - seuil variable"
+		    "<Image>/DCT-trad/4) Clean page - seuil variable"
 		    "Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.
-			Le seuil de tolérance à la couleur est variable. Commencez à zéro et augmentez petit à petit"
+			  Le seuil de tolérance à la couleur est variable. Commencez à zéro et augmentez petit à petit"
 		    "Sergeileduc"
 		    "Sergeileduc"
 		    "2008-06-28"
