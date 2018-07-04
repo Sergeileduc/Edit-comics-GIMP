@@ -36,9 +36,9 @@
 ))
 
 (script-fu-register "script-fu-clean-page-seuil-variable"
-		    "<Image>/DCT-trad/4) Clean page - seuil variable"
+		    "<Image>/DCT-trad/4b) Clean page - seuil variable"
 		    "Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.
-			  Le seuil de tolérance à la couleur est variable. Commencez à zéro et augmentez petit à petit"
+			Le seuil de tolérance à la couleur est variable. Commencez à zéro et augmentez petit à petit"
 		    "Sergeileduc"
 		    "Sergeileduc"
 		    "2008-06-28"

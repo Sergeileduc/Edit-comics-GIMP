@@ -1,6 +1,9 @@
 (define (script-fu-clean-zone image drawable)
 
-( let* ((drawable (car (gimp-image-active-drawable image))))
+	;variable
+	(let* (
+		(drawable (car (gimp-image-active-drawable image))))
+
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
@@ -10,7 +13,8 @@
 
 	;script
 	(gimp-image-get-selection image)
-	(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
+	;(gimp-image-select-color image 3 drawable (car (gimp-context-get-backgroud)))
+	(gimp-image-select-color image 3 (car (gimp-image-get-active-drawable image)) (car (gimp-context-get-background)))
 	(gimp-selection-flood image)
 	(gimp-drawable-edit-fill (car (gimp-image-get-active-drawable image)) FILL-BACKGROUND)
 
@@ -20,7 +24,8 @@
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
 
-))
+);end let
+)
 
 (script-fu-register "script-fu-clean-zone"
 	"<Image>/DCT-trad/3) Clean zone..."

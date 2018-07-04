@@ -13,7 +13,7 @@
         (select-y2 (caddr (cddr select-bounds)))
         (select-width (- select-x2 select-x1))
         (select-height (- select-y2 select-y1))
-	)
+				)
 
 	;script
 	(gimp-image-get-selection image)
@@ -29,7 +29,7 @@
 	(gimp-selection-none image)
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
-	)
+	);end let
 )
 
 (script-fu-register "script-fu-clean-texture"

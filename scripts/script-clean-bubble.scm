@@ -5,6 +5,7 @@
 		(drawable (car (gimp-image-active-drawable image)))
 		)
 
+
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
@@ -14,15 +15,14 @@
 
 	;remplit la sélection avec la couleur de PP
 	;(gimp-drawable-edit-fill drawable FILL-FOREGROUND)
-	(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
-
-	);end let*
+	(gimp-drawable-edit-fill (car(gimp-image-get-active-drawable image)) FILL-BACKGROUND)
 
 	;Finish
 	(gimp-displays-flush)
 	(gimp-selection-none image)
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
+	);end let
 	)
 
 (script-fu-register "script-fu-clean-bubble"
