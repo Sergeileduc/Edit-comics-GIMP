@@ -12,7 +12,6 @@
 
 	;script
 	(gimp-image-get-selection image)
-	;(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
 	(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
 	(gimp-selection-flood image)
 	(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
