@@ -5,15 +5,15 @@
 	(gimp-image-undo-group-start image)
 
 	(let* (
-				(drawable (car (gimp-image-active-drawable image)))
-				(select-bounds (gimp-selection-bounds image))
-        (select-x1 (cadr select-bounds))
-        (select-y1 (caddr select-bounds))
-        (select-x2 (cadr (cddr select-bounds)))
-        (select-y2 (caddr (cddr select-bounds)))
-        (select-width (- select-x2 select-x1))
-        (select-height (- select-y2 select-y1))
-				)
+		(drawable (car (gimp-image-active-drawable image)))
+		(select-bounds (gimp-selection-bounds image))
+		(select-x1 (cadr select-bounds))
+		(select-y1 (caddr select-bounds))
+		(select-x2 (cadr (cddr select-bounds)))
+		(select-y2 (caddr (cddr select-bounds)))
+		(select-width (- select-x2 select-x1))
+		(select-height (- select-y2 select-y1))
+		)
 
 	;script
 	(gimp-image-get-selection image)
