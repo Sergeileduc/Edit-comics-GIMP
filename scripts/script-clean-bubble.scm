@@ -14,8 +14,7 @@
 	(gimp-selection-flood image)
 
 	;remplit la sélection avec la couleur de PP
-	;(gimp-drawable-edit-fill drawable FILL-FOREGROUND)
-	(gimp-drawable-edit-fill (car(gimp-image-get-active-drawable image)) FILL-BACKGROUND)
+	(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
 
 	;Finish
 	(gimp-displays-flush)
