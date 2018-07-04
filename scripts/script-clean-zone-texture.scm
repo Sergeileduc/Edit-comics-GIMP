@@ -15,12 +15,13 @@
 		(select-height (- select-y2 select-y1))
 		)
 
-	;script
+	;heal selection
 	(gimp-image-get-selection image)
 	(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
 	(gimp-selection-grow image grow-pixel)
 	(python-fu-heal-selection 1 image drawable sampling-width sample-from filling-order)
-
+	
+	;flou
 	(gimp-image-select-round-rectangle image 2 select-x1 select-y1 select-width select-height 5 5)
 	(plug-in-gauss 0 image drawable flou flou 0)
 
