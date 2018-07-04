@@ -22,7 +22,7 @@
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
 	);end let
-	)
+)
 
 (script-fu-register "script-fu-clean-bubble"
 	"<Image>/DCT-trad/1) Clean bulle..."
