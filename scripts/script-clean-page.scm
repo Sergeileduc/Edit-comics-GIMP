@@ -1,27 +1,27 @@
 (define (script-fu-clean-page-seuil-variable image drawable marge_w marge_h seuil)
- ( let*
-		(
-		(drawable (car (gimp-image-active-drawable image)))
-		(imageWidth (car (gimp-image-width image))) ;largeur de l'image
-		(imageHeight (car (gimp-image-height image))) ;hauteur de l'image
-		)
+  (let*
+    (
+    (drawable (car (gimp-image-active-drawable image)))
+    (imageWidth (car (gimp-image-width image))) ;largeur de l'image
+    (imageHeight (car (gimp-image-height image))) ;hauteur de l'image
+    )
 
-	;Prep
-	(gimp-context-push)
-	(gimp-image-undo-group-start image)
-	(gimp-context-set-sample-threshold-int seuil)
+  ;Prep
+  (gimp-context-push)
+  (gimp-image-undo-group-start image)
+  (gimp-context-set-sample-threshold-int seuil)
 
-    ;Sélectionner le centre de la page (sans les marges)
-	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
+  ;Sélectionner le centre de la page (sans les marges)
+  (gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
 
-	;Sélection par couleur, dans la zone sans les marges (par intersection)
-	(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
+  ;Sélection par couleur, dans la zone sans les marges (par intersection)
+  (gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
 
-	;Enlève les trous la sélection
-	(gimp-selection-flood image)
+  ;Enlève les trous la sélection
+  (gimp-selection-flood image)
 
-	;Remplit la sélection de noir (couleur d'avant-plan)
-	(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
+  ;Remplit la sélection de noir (couleur d'avant-plan)
+  (gimp-drawable-edit-fill drawable FILL-BACKGROUND)
 
 	; Déselectionne tout
 	;(gimp-selection-none image)
@@ -33,7 +33,8 @@
 	;Finish
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
-))
+  );end let
+)
 
 (script-fu-register "script-fu-clean-page-seuil-variable"
 		    "<Image>/DCT-trad/4b) Clean page - seuil variable"
