@@ -10,7 +10,7 @@
 	(gimp-image-undo-group-start image)
 
 	;modifiez cette valeur (0 par défaut) si vous voulez un script avec un seuil plus tolérant
-	(gimp-context-set-sample-threshold 0)
+	(gimp-context-set-sample-threshold-int 0)
 
 	;script
 	(gimp-image-get-selection image)
