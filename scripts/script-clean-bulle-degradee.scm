@@ -19,7 +19,7 @@
 	(gimp-selection-flood image)
 	(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
 	(gimp-selection-grow image 2)
-	(python-fu-heal-selection 1 image drawable 10 0 0)
+	(python-fu-heal-selection 0 image drawable 10 0 0)
 
 	;Finish
 	(gimp-displays-flush)
