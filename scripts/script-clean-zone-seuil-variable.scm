@@ -26,7 +26,7 @@
 )
 
 (script-fu-register "script-fu-clean-zone-seuil-variable"
-	"<Image>/DCT-trad/3b) Clean zone - seuil variable"
+	"3b) Clean zone - seuil variable"
 	"Clean toutes les bulles de la zone avec la couleur de AP
 	Veuillez d'abord sélectionner une zone \(avec l'outil de sélection réctangulaire par exemple\)
 	Le seuil de tolérance à la couleur est variable"
@@ -38,3 +38,6 @@
 	SF-DRAWABLE "Current Layer" 0
 	SF-ADJUSTMENT "seuil de tolérance à la couleur \(pour le blanc cassé par exemple\)" '(5 0 30 1 10 0 0)
 )
+
+( script-fu-menu-register
+   "script-fu-clean-zone-seuil-variable" "<Image>/DCT-trad/")

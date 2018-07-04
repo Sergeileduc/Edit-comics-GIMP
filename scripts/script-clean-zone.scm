@@ -28,7 +28,7 @@
 )
 
 (script-fu-register "script-fu-clean-zone"
-	"<Image>/DCT-trad/3) Clean zone..."
+	"3) Clean zone..."
 	"Clean toutes les bulles de la zone avec la couleur de AP
 	Veuillez d'abord sélectionner une zone (avec l'outil de sélection réctangulaire par exemple)
 	Le seuil de tolérance à la couleur est de 0. Pour un seuil variable, utilisez le script 3b) Clean zone - seuil variable"
@@ -39,3 +39,6 @@
 	SF-IMAGE "Input Image" 0
 	SF-DRAWABLE "Current Layer" 0
 )
+
+( script-fu-menu-register
+   "script-fu-clean-zone" "<Image>/DCT-trad/")

@@ -30,7 +30,7 @@
 )
 
 (script-fu-register "script-fu-clean-degrade"
-	"<Image>/DCT-trad/1b) Clean bulle dégradée..."
+	"1b) Clean bulle dégradée..."
 	"Il faut que la couleur de PP soit la couleur des lettres
 	\(Utilisez la PIPETTE -> le noir des lettres n'est jamais du  vrai \(0 0 0\),
 	souvent c'est du gris foncé \(30 30 30\)\),
@@ -44,3 +44,6 @@
 	SF-IMAGE "Input Image" 0
 	SF-DRAWABLE "Current Layer" 0
 )
+
+( script-fu-menu-register
+   "script-fu-clean-degrade" "<Image>/DCT-trad/")

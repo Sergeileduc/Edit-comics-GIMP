@@ -25,7 +25,7 @@
 )
 
 (script-fu-register "script-fu-clean-bubble"
-	"<Image>/DCT-trad/1) Clean bulle..."
+	"1) Clean bulle..."
 	"Clean la/les bulle(s) selectionnées avec la couleur AP
 	Sélectionnez vos bulles en les sélectionnant avec la baguette magique avant de lancer le script"
 	"Sergeileduc"
@@ -35,3 +35,6 @@
 	SF-IMAGE "Input Image" 0
 	SF-DRAWABLE "Current Layer" 0
 )
+
+( script-fu-menu-register
+   "script-fu-clean-bubble" "<Image>/DCT-trad/")

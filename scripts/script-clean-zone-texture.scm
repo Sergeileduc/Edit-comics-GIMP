@@ -20,7 +20,7 @@
 	(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
 	(gimp-selection-grow image grow-pixel)
 	(python-fu-heal-selection 1 image drawable sampling-width sample-from filling-order)
-	
+
 	;flou
 	(gimp-image-select-round-rectangle image 2 select-x1 select-y1 select-width select-height 5 5)
 	(plug-in-gauss 0 image drawable flou flou 0)
@@ -34,7 +34,7 @@
 )
 
 (script-fu-register "script-fu-clean-texture"
-	"<Image>/DCT-trad/2) Clean zone texturée ou transparente..."
+	"2) Clean zone texturée ou transparente..."
 	"Il faut que la couleur de PP soit la couleur des lettres
 	\(Utilisez la PIPETTE -> le noir des lettres n'est jamais du  vrai \(0 0 0\),
 	souvent c'est du gris foncé \(30 30 30\)\),
@@ -55,3 +55,6 @@
 	;SF-TOGGLE "Flouter avec un flou gaussien après la correction ?" FALSE
 	SF-ADJUSTMENT "Intensité du flou gaussien à appliquer en fin de script pour gommer les défauts" '(0 0 10 1 10 0 0)
 )
+
+( script-fu-menu-register
+   "script-fu-clean-texture" "<Image>/DCT-trad/")

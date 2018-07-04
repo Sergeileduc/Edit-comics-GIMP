@@ -1,4 +1,4 @@
-(define (script-fu-clean-page-seuil-variable image drawable marge_w marge_h seuil)
+(define (script-fu-clean-page image drawable marge_w marge_h seuil)
   (let*
     (
     (drawable (car (gimp-image-active-drawable image)))
@@ -36,8 +36,8 @@
   );end let
 )
 
-(script-fu-register "script-fu-clean-page-seuil-variable"
-		    "<Image>/DCT-trad/4) Clean page"
+(script-fu-register "script-fu-clean-page"
+		    "4) Clean page"
 		    "Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.
 			Le seuil de tolérance à la couleur est variable (0 pour un comics avec du blanc pur, 5, 10 ou 15 pour un comics dont les bulles sont \"blanc cassé\"). Commencez à zéro et augmentez petit à petit"
 		    "Sergeileduc"
@@ -46,7 +46,10 @@
 		    "RGB*"
 		    SF-IMAGE "Input Image" 0
 			SF-DRAWABLE "Current Layer" 0
-			SF-ADJUSTMENT _"Taille de la marge horizontale (en px)" '(120 0 300 1 10 0 0)
-			SF-ADJUSTMENT _"Taille de la marge verticale (en px)" '(140 0 300 1 10 0 0)
+			SF-ADJUSTMENT _"Taille de la marge horizontale (en px)" '(90 0 300 1 10 0 0)
+			SF-ADJUSTMENT _"Taille de la marge verticale (en px)" '(90 0 300 1 10 0 0)
 			SF-ADJUSTMENT _"seuil de tolérance à la couleur (pour le blanc cassé par exemple)" '(0 0 30 1 10 0 0)
 )
+
+( script-fu-menu-register
+   "script-fu-clean-page" "<Image>/DCT-trad/")
