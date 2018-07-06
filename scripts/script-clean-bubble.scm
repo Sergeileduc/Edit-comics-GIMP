@@ -37,4 +37,4 @@
 )
 
 ( script-fu-menu-register
-   "script-fu-clean-bubble" "<Image>/DCT-trad/")
+   "script-fu-clean-bubble" "<Image>/DC-trad/")

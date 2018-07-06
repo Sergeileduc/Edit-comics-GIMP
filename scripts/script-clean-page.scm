@@ -52,4 +52,4 @@
 )
 
 ( script-fu-menu-register
-   "script-fu-clean-page" "<Image>/DCT-trad/")
+   "script-fu-clean-page" "<Image>/DC-trad/")
