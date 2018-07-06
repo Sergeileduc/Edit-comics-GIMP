@@ -17,23 +17,30 @@ def pythonSaveToEdit(image,drawable) :
 	pdb.gimp_context_push()
 
 	#Code
-	filename = pdb.gimp_image_get_filename(image)
-	filename2 = filename.replace("_CLEAN", "")
 	drawable = pdb.gimp_image_get_active_drawable(image)
-	path=os.path.dirname(filename2)
-	path2=os.path.dirname(filename2)
+	filename = pdb.gimp_image_get_filename(image)
+	temp = filename.replace("_CLEAN", "")
+	temp2 = temp.replace("_EDIT", "")
+	filename = temp2.replace("_XCF", "")
+	path=os.path.dirname(filename)
+	path2=os.path.dirname(filename)
 	path += "_EDIT"
 	path2 += "_XCF"
-	name=os.path.basename(filename2)
+	name=os.path.basename(filename)
 	out_file=os.path.join(path,name)
 	out_xcf=os.path.join(path2,name)
+	out_file=os.path.splitext(out_file)[0]+'.jpg'
 	out_xcf=os.path.splitext(out_xcf)[0]+'.xcf'
 	
 	if not os.path.exists(path):
 		os.makedirs(path)
 	if not os.path.exists(path2):
 		os.makedirs(path2)
-	pdb.gimp_file_save(image, drawable, out_file, out_file)
+	#pdb.gimp_file_save(image, drawable, out_file, out_file)
+	new_image = pdb.gimp_image_duplicate(image)
+	layer = pdb.gimp_image_merge_visible_layers(new_image, CLIP_TO_IMAGE)
+	pdb.gimp_file_save(new_image, layer, out_file, out_file)
+	pdb.gimp_image_delete(new_image)
 	pdb.gimp_file_save(image, drawable, out_xcf, out_xcf)
 	pdb.gimp_image_clean_all(image)
 	

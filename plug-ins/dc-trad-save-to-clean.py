@@ -17,10 +17,10 @@ def pythonSaveToClean(image,drawable) :
 	pdb.gimp_context_push()
 
 	#Code
-	filename = pdb.gimp_image_get_filename(image)
+	filename_old = pdb.gimp_image_get_filename(image)
+	filename = filename_old.replace("_CLEAN", "")
 	drawable = pdb.gimp_image_get_active_drawable(image)
 	path=os.path.dirname(filename)
-	parent, folder=os.path.split(path)
 	path += "_CLEAN"
 	name=os.path.basename(filename)
 	out_file=os.path.join(path,name)
