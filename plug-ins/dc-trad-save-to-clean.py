@@ -46,7 +46,7 @@ register(
 	"RGB*, GRAY*", 
 	[
 	(PF_IMAGE, "image",       "Input image", None),
-    (PF_DRAWABLE, "drawable", "Input drawable", None),
+	(PF_DRAWABLE, "drawable", "Input drawable", None),
 	],
 	[],
 	pythonSaveToClean,

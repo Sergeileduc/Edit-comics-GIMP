@@ -40,4 +40,4 @@
 )
 
 ( script-fu-menu-register
-   "script-fu-clean-zone-seuil-variable" "<Image>/DC-trad/")
+	"script-fu-clean-zone-seuil-variable" "<Image>/DC-trad/")

@@ -39,4 +39,4 @@
 )
 
 ( script-fu-menu-register
-   "script-fu-clean-degrade" "<Image>/DC-trad/")
+	"script-fu-clean-degrade" "<Image>/DC-trad/")

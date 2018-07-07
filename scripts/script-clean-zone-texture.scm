@@ -57,4 +57,4 @@
 )
 
 ( script-fu-menu-register
-   "script-fu-clean-texture" "<Image>/DC-trad/")
+	"script-fu-clean-texture" "<Image>/DC-trad/")

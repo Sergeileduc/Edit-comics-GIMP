@@ -1,9 +1,9 @@
 (define (script-fu-clean-bubble image drawable)
 
 	;variable
-	(let* (
+	(let*	(
 		(drawable (car (gimp-image-active-drawable image)))
-		)
+			)
 
 
 	;Prep
@@ -37,4 +37,4 @@
 )
 
 ( script-fu-menu-register
-   "script-fu-clean-bubble" "<Image>/DC-trad/")
+	"script-fu-clean-bubble" "<Image>/DC-trad/")

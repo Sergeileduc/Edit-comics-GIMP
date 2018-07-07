@@ -41,4 +41,4 @@
 )
 
 ( script-fu-menu-register
-   "script-fu-clean-zone" "<Image>/DC-trad/")
+	"script-fu-clean-zone" "<Image>/DC-trad/")
