@@ -8,17 +8,22 @@
 		(drawable (car (gimp-image-active-drawable image)))
 		)
 
-	;Enlève les trous (le lettrage VO) de la sélection
-	(gimp-selection-flood image)
-	(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
-	(gimp-selection-grow image 2)
+	;Test selection vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
+		(begin
+		;Selectionne la bulle entière
+		(gimp-selection-flood image)
+		;Selectionne les lettres de couleur de PP
+		(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
+		;agrandis la sélection pour éviter les liserés
+		(gimp-selection-grow image 2)
 		(python-fu-heal-selection 0 image drawable 10 0 0)
+		);message d'erreur si selection vide
 		(gimp-message "Aucune sélection !!!\
 Veuillez sélectionner la zone à corriger\
 La couleur de Premier Plan doit être de la couleur des LETTRES\
 Utilisez la PIPETTE")
-	)
+	);end if
 
 	;Finish
 	(gimp-displays-flush)

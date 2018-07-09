@@ -4,7 +4,7 @@
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
 	(gimp-context-set-sample-threshold-int seuil)
-
+	(gimp-image-get-selection image)
 	(let* (
 		(drawable (car (gimp-image-active-drawable image)))
 		(select-bounds (gimp-selection-bounds image))
@@ -16,21 +16,22 @@
 		(select-height (- select-y2 select-y1))
 		)
 
-	;heal selection
-	(gimp-image-get-selection image)
-	(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
-	(gimp-selection-grow image grow-pixel)
+	;Test selection vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
+		(begin
+		(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
+		(gimp-selection-grow image grow-pixel)
+		;heal selection
 		(python-fu-heal-selection 1 image drawable sampling-width sample-from filling-order)
+		;flou
+		(gimp-image-select-round-rectangle image 2 select-x1 select-y1 select-width select-height 5 5)
+		(plug-in-gauss 0 image drawable flou flou 0)
+		);else message d'erreur
 		(gimp-message "Aucune sélection !\
 Veuillez sélectionner la zone à corriger\
 La couleur de Premier Plan doit être de la couleur des LETTRES\
 Utilisez la PIPETTE")
 	)
-
-	;flou
-	(gimp-image-select-round-rectangle image 2 select-x1 select-y1 select-width select-height 5 5)
-	(plug-in-gauss 0 image drawable flou flou 0)
 
 	;Finish
 	(gimp-displays-flush)
