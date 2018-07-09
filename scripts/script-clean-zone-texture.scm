@@ -19,23 +19,28 @@
 	;Test selection vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
 		(begin
+		;intersection avec le couleur de PP
 		(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
-		(gimp-selection-grow image grow-pixel)
-		;heal selection
-		(python-fu-heal-selection 1 image drawable sampling-width sample-from filling-order)
-		;flou
-		(gimp-image-select-round-rectangle image 2 select-x1 select-y1 select-width select-height 5 5)
-		(plug-in-gauss 0 image drawable flou flou 0)
-		);else message d'erreur
-		(gimp-message "Aucune sélection !\
-Veuillez sélectionner la zone à corriger\
-La couleur de Premier Plan doit être de la couleur des LETTRES\
-Utilisez la PIPETTE")
-	)
+		;test si la couleur AP est correcte
+		(if (= (car (gimp-selection-is-empty image)) FALSE)
+			(begin
+			(gimp-selection-grow image grow-pixel)
+			;heal selection
+			(python-fu-heal-selection 1 image drawable sampling-width sample-from filling-order)
+			;flou
+			(gimp-image-select-round-rectangle image 2 select-x1 select-y1 select-width select-height 5 5)
+			(plug-in-gauss 0 image drawable flou flou 0)
+			(gimp-selection-none image)
+			(gimp-displays-flush)
+			);message d'erreur sur la couleur de PP
+			(gimp-message "La couleur de Premier Plan doit être de la couleur des LETTRES\
+Utilisez la PIPETTE\
+Ou augmentez le seuil"));end if couleur
+		);message d'erreur selection utilisateur
+		(gimp-message "Aucune sélection !!!\
+Veuillez sélectionner la zone à corriger"));end if selection utilisateur vide
 
 	;Finish
-	(gimp-displays-flush)
-	(gimp-selection-none image)
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
 	);end let
