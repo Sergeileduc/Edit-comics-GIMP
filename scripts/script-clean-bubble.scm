@@ -30,8 +30,9 @@ Sélectionnez des bulles avec la baguette magique")
 
 (script-fu-register "script-fu-clean-bubble"
 	"1) Clean bulle..."
-	"Clean la/les bulle(s) selectionnées avec la couleur AP
-	Sélectionnez vos bulles en les sélectionnant avec la baguette magique avant de lancer le script"
+	"Clean la/les bulle(s) selectionnées avec la couleur AP\
+....................\
+Sélectionnez vos bulles en les sélectionnant avec la baguette magique avant de lancer le script"
 	"Sergeileduc"
 	"Sergeileduc"
 	"2008-06-28"

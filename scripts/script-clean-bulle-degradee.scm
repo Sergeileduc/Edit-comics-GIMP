@@ -12,7 +12,13 @@
 	(gimp-selection-flood image)
 	(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
 	(gimp-selection-grow image 2)
-	(python-fu-heal-selection 0 image drawable 10 0 0)
+	(if (= (car (gimp-selection-is-empty image)) FALSE)
+		(python-fu-heal-selection 0 image drawable 10 0 0)
+		(gimp-message "Aucune sélection !!!\
+Veuillez sélectionner la zone à corriger\
+La couleur de Premier Plan doit être de la couleur des LETTRES\
+Utilisez la PIPETTE")
+	)
 
 	;Finish
 	(gimp-displays-flush)
@@ -24,12 +30,12 @@
 
 (script-fu-register "script-fu-clean-degrade"
 	"1b) Clean bulle dégradée..."
-	"Il faut que la couleur de PP soit la couleur des lettres
-	\(Utilisez la PIPETTE -> le noir des lettres n'est jamais du  vrai \(0 0 0\),
-	souvent c'est du gris foncé \(30 30 30\)\),
-	alors utilisez la pipette sur les lettres..
-
-	Veuillez d'abord sélectionner une (ou plusieurs bulles) \(avec l'outil baguette magique par exemple\)"
+	"Il faut que la couleur de PP soit la couleur des LETTRES\
+(Utilisez la PIPETTE -> le noir des lettres n'est jamais du  vrai \(0 0 0\),\
+souvent c'est du gris foncé \(30 30 30\)\),\
+alors utilisez la pipette sur les lettres..
+.......................\
+Veuillez d'abord sélectionner une (ou plusieurs bulles) \(avec l'outil baguette magique par exemple\)"
 	"Sergeileduc"
 	"Sergeileduc"
 	"2018-06-28"
