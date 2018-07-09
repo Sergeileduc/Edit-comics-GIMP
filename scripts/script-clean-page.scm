@@ -20,12 +20,13 @@
 	;Enlève les trous la sélection
 	(gimp-selection-flood image)
 
-	;Remplit la sélection de noir (couleur d'avant-plan)
+	;Test si la sélection est vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
 		(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
+		;message d'erreur si selection vide
 		(gimp-message "Aucune sélection !\
 Vérifiez la couleur d'arrière-plan, ou augmentez le seuil")
-	)
+	);end if
 
 	; Déselectionne tout
 	;(gimp-selection-none image)

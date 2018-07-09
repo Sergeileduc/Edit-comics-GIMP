@@ -15,14 +15,16 @@
 
 	;remplit la sélection avec la couleur de PP
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
+		(begin
 		(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
+		(gimp-selection-none image)
+		);message d'erreur
 		(gimp-message "Aucune sélection !!!\
 Sélectionnez des bulles avec la baguette magique")
 	)
 
 	;Finish
 	(gimp-displays-flush)
-	(gimp-selection-none image)
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
 	);end let
