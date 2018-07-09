@@ -14,7 +14,11 @@
 	(gimp-image-get-selection image)
 	(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
 	(gimp-selection-flood image)
-	(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
+	(if (= (car (gimp-selection-is-empty image)) FALSE)
+		(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
+		(gimp-message "Aucune sélection !\
+Vérifiez la couleur d'arrière-plan, ou augmentez le seuil")
+	)
 
 	;Finish
 	(gimp-displays-flush)
@@ -27,9 +31,10 @@
 
 (script-fu-register "script-fu-clean-zone-seuil-variable"
 	"3b) Clean zone - seuil variable"
-	"Clean toutes les bulles de la zone avec la couleur de AP
-	Veuillez d'abord sélectionner une zone \(avec l'outil de sélection réctangulaire par exemple\)
-	Le seuil de tolérance à la couleur est variable"
+	"Clean toutes les bulles de la zone avec la couleur de AP\
+...................\
+-Veuillez d'abord sélectionner une zone \(avec l'outil de sélection réctangulaire par exemple\)\
+-Le seuil de tolérance à la couleur est variable"
 	"Sergeileduc"
 	"Sergeileduc"
 	"2018-06-28"

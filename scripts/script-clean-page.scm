@@ -21,7 +21,11 @@
 	(gimp-selection-flood image)
 
 	;Remplit la sélection de noir (couleur d'avant-plan)
-	(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
+	(if (= (car (gimp-selection-is-empty image)) FALSE)
+		(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
+		(gimp-message "Aucune sélection !\
+Vérifiez la couleur d'arrière-plan, ou augmentez le seuil")
+	)
 
 	; Déselectionne tout
 	;(gimp-selection-none image)
@@ -38,8 +42,10 @@
 
 (script-fu-register "script-fu-clean-page"
 	"4) Clean page"
-	"Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.
-	Le seuil de tolérance à la couleur est variable (0 pour un comics avec du blanc pur, 5, 10 ou 15 pour un comics dont les bulles sont \"blanc cassé\"). Commencez à zéro et augmentez petit à petit"
+	"Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.\
+...................\
+-Le seuil de tolérance à la couleur est variable (0 pour un comics avec du blanc pur, 5, 10 ou 15 pour un comics dont les bulles sont \"blanc cassé\").\
+-Commencez à zéro et augmentez petit à petit"
 	"Sergeileduc"
 	"Sergeileduc"
 	"2008-06-28"
