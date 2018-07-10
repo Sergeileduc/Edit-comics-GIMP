@@ -1,4 +1,4 @@
-(define (script-fu-clean-page-marges image drawable)
+(define (script-fu-clean-page-marges image drawable marge_w marge_h seuil)
 (let*
 	(
 	(drawable (car (gimp-image-active-drawable image)))
@@ -9,7 +9,7 @@
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
-	(gimp-context-set-sample-threshold-int 2)
+	(gimp-context-set-sample-threshold-int seuil)
 
 	;Sélectionner le centre de la page (sans les marges)
 	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
