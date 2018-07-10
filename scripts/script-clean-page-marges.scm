@@ -1,4 +1,4 @@
-(define (script-fu-clean-page image drawable marge_w marge_h seuil)
+(define (script-fu-clean-page-marges image drawable)
 (let*
 	(
 	(drawable (car (gimp-image-active-drawable image)))
@@ -9,7 +9,7 @@
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
-	(gimp-context-set-sample-threshold-int seuil)
+	(gimp-context-set-sample-threshold-int 2)
 
 	;Sélectionner le centre de la page (sans les marges)
 	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
@@ -41,11 +41,11 @@ Vérifiez la couleur d'arrière-plan, ou augmentez le seuil")
 );end let
 )
 
-(script-fu-register "script-fu-clean-page"
-	"4) Clean page"
+(script-fu-register "script-fu-clean-page-marges"
+	"4b) Clean page - Marges et seuil variables"
 	"Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.\
 ...................\
--Le seuil de tolérance à la couleur est variable (0 pour un comics avec du blanc pur, 5, 10 ou 15 pour un comics dont les bulles sont \"blanc cassé\").\
+-Le seuil de tolérance à la couleur est variable (0 = couleur pure).\
 -Commencez à zéro et augmentez petit à petit"
 	"Sergeileduc"
 	"Sergeileduc"
@@ -58,4 +58,4 @@ Vérifiez la couleur d'arrière-plan, ou augmentez le seuil")
 	SF-ADJUSTMENT _"seuil de tolérance à la couleur (pour le blanc cassé par exemple)" '(0 0 30 1 10 0 0)
 	)
 ( script-fu-menu-register
-	"script-fu-clean-page" "<Image>/DC-trad/")
+	"script-fu-clean-page-marges" "<Image>/DC-trad/")
