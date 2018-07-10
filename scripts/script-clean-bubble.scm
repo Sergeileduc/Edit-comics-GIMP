@@ -31,16 +31,16 @@ Sélectionnez des bulles avec la baguette magique")
 )
 
 (script-fu-register "script-fu-clean-bubble"
-	"1) Clean bulle..."
-	"Clean la/les bulle(s) selectionnées avec la couleur AP\
+"1) Clean bulle..."
+"Clean la/les bulle(s) selectionnées avec la couleur AP\
 ....................\
 Sélectionnez vos bulles en les sélectionnant avec la baguette magique avant de lancer le script"
-	"Sergeileduc"
-	"Sergeileduc"
-	"2008-06-28"
-	"RGB*"
-	SF-IMAGE "Input Image" 0
-	SF-DRAWABLE "Current Layer" 0
+"Sergeileduc"
+"Sergeileduc"
+"2008-06-28"
+"RGB*"
+SF-IMAGE "Input Image" 0
+SF-DRAWABLE "Current Layer" 0
 )
 
 ( script-fu-menu-register

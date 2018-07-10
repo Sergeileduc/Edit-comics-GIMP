@@ -47,27 +47,27 @@ Veuillez sélectionner la zone à corriger"));end if selection utilisateur vide
 )
 
 (script-fu-register "script-fu-clean-texture"
-	"2) Clean zone texturée ou transparente..."
-	"Il faut que la couleur de PP soit la couleur des lettres\
+"2) Clean zone texturée ou transparente..."
+"Il faut que la couleur de PP soit la couleur des lettres\
 \(Utilisez la PIPETTE -> le noir des lettres n'est jamais du  vrai \(0 0 0\),\
 souvent c'est du gris foncé \(30 30 30\)\),
 \alors utilisez la pipette sur les lettres..
 ......................\
 Veuillez d'abord sélectionner une zone \(avec l'outil de sélection RECTANGULAIRE par exemple\)"
-	"Sergeileduc"
-	"Sergeileduc"
-	"2018-06-28"
-	"RGB*"
-	SF-IMAGE "Input Image" 0
-	SF-DRAWABLE "Current Layer" 0
-	SF-ADJUSTMENT "Seuil de tolérance à la couleur des LETTRES (défault = 30)" '(30 10 70 1 10 0 0)
-	SF-ADJUSTMENT "Agrandir la sélection autour des lettres de n (pixels)\
+"Sergeileduc"
+"Sergeileduc"
+"2018-06-28"
+"RGB*"
+SF-IMAGE "Input Image" 0
+SF-DRAWABLE "Current Layer" 0
+SF-ADJUSTMENT "Seuil de tolérance à la couleur des LETTRES (défault = 30)" '(30 10 70 1 10 0 0)
+SF-ADJUSTMENT "Agrandir la sélection autour des lettres de n (pixels)\
 1 ou 2 généralement, jouer plutôt sur le seuil si les lettres disparaissent mal" '(1 0 10 1 10 0 0)
-	SF-ADJUSTMENT "Context sampling width \(pixels\)" '(10 0 100 1 10 0 0)
-	SF-OPTION "Sample from" '("All around" "Sides" "Above and below")
-	SF-OPTION "Filling order" '("Random" "Inwards towards center" "Outwards from center")
-	;SF-TOGGLE "Flouter avec un flou gaussien après la correction ?" FALSE
-	SF-ADJUSTMENT "Intensité du flou gaussien à appliquer en fin de script pour gommer les défauts\
+SF-ADJUSTMENT "Context sampling width \(pixels\)" '(10 0 100 1 10 0 0)
+SF-OPTION "Sample from" '("All around" "Sides" "Above and below")
+SF-OPTION "Filling order" '("Random" "Inwards towards center" "Outwards from center")
+;SF-TOGGLE "Flouter avec un flou gaussien après la correction ?" FALSE
+SF-ADJUSTMENT "Intensité du flou gaussien à appliquer en fin de script pour gommer les défauts\
 0 pas de flou / 2 léger flou" '(0 0 10 1 10 0 0)
 )
 

@@ -35,17 +35,17 @@ Vérifiez la couleur d'arrière-plan ou utilisez des scripts avec un seuil plus 
 )
 
 (script-fu-register "script-fu-clean-page-auto-0"
-	"4) Clean page - Auto - seuil 0"
-	"Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.\
+"4) Clean page - Auto - seuil 0"
+"Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.\
 ...................\
 -Le seuil de tolérance à la couleur est fixée à 0.\
 Utilisez les scripts avec d'autres seuils en cas de problème"
-	"Sergeileduc"
-	"Sergeileduc"
-	"2008-06-28"
-	"RGB*"
-	SF-IMAGE "Input Image" 0
-	SF-DRAWABLE "Current Layer" 0
-	)
+"Sergeileduc"
+"Sergeileduc"
+"2008-06-28"
+"RGB*"
+SF-IMAGE "Input Image" 0
+SF-DRAWABLE "Current Layer" 0
+)
 ( script-fu-menu-register
 	"script-fu-clean-page-auto-0" "<Image>/DC-trad/")

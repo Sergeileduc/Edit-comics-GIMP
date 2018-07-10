@@ -36,21 +36,21 @@ def pythonSaveToClean(image,drawable) :
 	pdb.gimp_displays_flush()
 
 register(
-	"python-save-to-clean",                           
-	"Sauvegarde vers le dossier clean",
-	"Sauvegarde vers le dossier clean",
-	"Sergeileduc",
-	"Sergeileduc",
-	"2018",
-	"5) Sauve vers le dossier \"-clean\"",             #Menu path
-	"RGB*, GRAY*", 
-	[
-	(PF_IMAGE, "image",       "Input image", None),
-	(PF_DRAWABLE, "drawable", "Input drawable", None),
-	],
-	[],
-	pythonSaveToClean,
-	menu="<Image>/DC-trad/"
-	)
+"python-save-to-clean",                           
+"Sauvegarde vers le dossier clean",
+"Sauvegarde vers le dossier clean",
+"Sergeileduc",
+"Sergeileduc",
+"2018",
+"5) Sauve vers le dossier \"-clean\"",             #Menu path
+"RGB*, GRAY*", 
+[
+(PF_IMAGE, "image",       "Input image", None),
+(PF_DRAWABLE, "drawable", "Input drawable", None),
+],
+[],
+pythonSaveToClean,
+menu="<Image>/DC-trad/"
+)
 
 main()

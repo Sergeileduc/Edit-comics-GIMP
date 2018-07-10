@@ -50,21 +50,21 @@ def pythonSaveToEdit(image,drawable) :
 	pdb.gimp_displays_flush()
 
 register(
-	"python-save-to-edit",
-	"Sauvegarde vers les dossiers Edit et XCF",
-	"Sauvegarde vers les dossiers Edit et XCF",
-	"Sergeileduc",
-	"Sergeileduc",
-	"2018",
-	"6) Sauve vers les dossiers \"-Edit\" et \"-XCF\"",		#Menu path
-	"RGB*, GRAY*", 
-	[
-	(PF_IMAGE, "image",       "Input image", None),
-	(PF_DRAWABLE, "drawable", "Input drawable", None),
-	],
-	[],
-	pythonSaveToEdit,
-	menu="<Image>/DC-trad/"
-	)
+"python-save-to-edit",
+"Sauvegarde vers les dossiers Edit et XCF",
+"Sauvegarde vers les dossiers Edit et XCF",
+"Sergeileduc",
+"Sergeileduc",
+"2018",
+"6) Sauve vers les dossiers \"-Edit\" et \"-XCF\"",		#Menu path
+"RGB*, GRAY*", 
+[
+(PF_IMAGE, "image",       "Input image", None),
+(PF_DRAWABLE, "drawable", "Input drawable", None),
+],
+[],
+pythonSaveToEdit,
+menu="<Image>/DC-trad/"
+)
 
 main()

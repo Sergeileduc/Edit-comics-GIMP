@@ -34,19 +34,19 @@ Utilisez la PIPETTE")
 )
 
 (script-fu-register "script-fu-clean-degrade"
-	"1b) Clean bulle dégradée..."
-	"Il faut que la couleur de PP soit la couleur des LETTRES\
+"1b) Clean bulle dégradée..."
+"Il faut que la couleur de PP soit la couleur des LETTRES\
 (Utilisez la PIPETTE -> le noir des lettres n'est jamais du  vrai \(0 0 0\),\
 souvent c'est du gris foncé \(30 30 30\)\),\
 alors utilisez la pipette sur les lettres..
 .......................\
 Veuillez d'abord sélectionner une (ou plusieurs bulles) \(avec l'outil baguette magique par exemple\)"
-	"Sergeileduc"
-	"Sergeileduc"
-	"2018-06-28"
-	"RGB*"
-	SF-IMAGE "Input Image" 0
-	SF-DRAWABLE "Current Layer" 0
+"Sergeileduc"
+"Sergeileduc"
+"2018-06-28"
+"RGB*"
+SF-IMAGE "Input Image" 0
+SF-DRAWABLE "Current Layer" 0
 )
 
 ( script-fu-menu-register
