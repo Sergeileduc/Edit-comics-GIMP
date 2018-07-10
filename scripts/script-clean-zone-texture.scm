@@ -28,7 +28,7 @@
 			;heal selection
 			(python-fu-heal-selection 1 image drawable sampling-width sample-from filling-order)
 			;flou
-			(gimp-image-select-round-rectangle image 2 select-x1 select-y1 select-width select-height 5 5)
+			(gimp-image-select-round-rectangle image CHANNEL-OP-REPLACE select-x1 select-y1 select-width select-height 5 5)
 			(plug-in-gauss 0 image drawable flou flou 0)
 			(gimp-selection-none image)
 			(gimp-displays-flush)
