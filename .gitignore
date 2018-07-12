@@ -1,10 +1,29 @@
 
 unitrc
 toolrc
+backups/
+brushes/
+curves/
+dynamics/
+environ/
+filters/
+fonts/
+fractalexplorer/
+gfig/
+gflare/
+gimpressionist/
+gradients/
+icons/
+internal-data/
+interpreters/
+levels/
+modules/
 palettes/
+patterns/
+templates/
+tmp/
 tool-options/
 tool-presets/
-fonts/
 action-history
 colorrc
 contextrc
@@ -13,7 +32,6 @@ devicerc
 dockrc
 gimprc
 gtkrc
-internal-data/custom.ggr
 menurc
 parasiterc
 plug-ins/gmic_gimp_qt/gmic_gimp_qt.exe
@@ -51,7 +69,6 @@ sessionrc
 tags.xml
 templaterc
 themerc
-filters/GimpGegl-gegl-cartoon-config.settings
 *.settings
 plug-ins/export-layer.py
 plug-ins/jpeg-to-xcf.py
