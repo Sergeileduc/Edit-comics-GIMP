@@ -3,6 +3,8 @@
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
+	(gimp-context-set-sample-threshold-int 15)
+	(gimp-image-get-selection image)
 
 	(let* (
 		(drawable (car (gimp-image-active-drawable image)))
@@ -15,19 +17,21 @@
 		(gimp-selection-flood image)
 		;Selectionne les lettres de couleur de PP
 		(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
-		;agrandis la sélection pour éviter les liserés
-		(gimp-selection-grow image 2)
-		(python-fu-heal-selection 0 image drawable 10 0 0)
+		(if (= (car (gimp-selection-is-empty image)) FALSE)
+			(begin
+			;agrandis la sélection pour éviter les liserés
+			(gimp-selection-grow image 2)
+			(python-fu-heal-selection 1 image drawable 10 0 0)
+			(gimp-selection-none image)
+			(gimp-displays-flush)
+			);message d'erreur sur la couleur de PP
+			(gimp-message "La couleur de Premier Plan doit être de la couleur des LETTRES\
+Utilisez la PIPETTE"));end if couleur
 		);message d'erreur si selection vide
 		(gimp-message "Aucune sélection !!!\
-Veuillez sélectionner la zone à corriger\
-La couleur de Premier Plan doit être de la couleur des LETTRES\
-Utilisez la PIPETTE")
-	);end if
+Veuillez sélectionner la(les) bulle(s) à corriger (baguette magique seuil ~ 100 par exemple"));end if selection utilisateur vide
 
 	;Finish
-	(gimp-displays-flush)
-	(gimp-selection-none image)
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
 	);end let
