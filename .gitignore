@@ -56,3 +56,4 @@ filters/GimpGegl-gegl-cartoon-config.settings
 plug-ins/export-layer.py
 plug-ins/jpeg-to-xcf.py
 plug-ins/save-to.py
+plug-ins/import_text.py
