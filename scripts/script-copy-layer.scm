@@ -1,3 +1,5 @@
+;Script pour copier l'image originale dans un nouveau calque, au sommet, en non visible, et en vérouillé.
+
 (define (script-fu-copy-layer image drawable)
 
 	;variable
