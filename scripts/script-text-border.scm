@@ -1,0 +1,145 @@
+; To use this script, make sure that the selected layer is the one that you want to outline
+;
+; You will then be able to set various parameters for the outline. They are:
+;		Colour - what colour you want the outline to be
+;		Thickness - thickness of the outline (in pixels)
+;		Feather - how soft you want the edge of the outline to be
+;
+; The script will create a new, transparent layer underneath your selected layer, and draw the
+; outline into that new layer.|#
+
+;Selects the contents of the given layer, then grows it by "thickness"
+;and feathers it by "feather" pixels
+(define (create-selection image layer thickness feather)
+	(gimp-image-select-item image CHANNEL-OP-REPLACE layer)
+	(if (> thickness 0)(gimp-selection-grow image thickness))
+	(if (> feather 0) (gimp-selection-feather image feather))
+);end define
+
+;Fills the current selection using the given colour, painting onto the
+;given layer.
+(define (fill-selection image layer colour)
+;	# Cache existing foreground colour
+;	old_fg = pdb.gimp_palette_get_foreground()	
+;	# Set foreground colour
+;	pdb.gimp_palette_set_foreground(colour)	
+;	# Fill the selection
+;	pdb.gimp_bucket_fill(layer, 0, 0, 100, 0, 0, 1, 1)	
+;	# Restore cached foreground colour
+;	pdb.gimp_palette_set_foreground(old_fg)	
+;	return
+	(gimp-context-set-foreground colour)
+	(if (= (car (gimp-selection-is-empty image)) FALSE)
+		(gimp-drawable-edit-fill layer FILL-FOREGROUND)
+	);end if
+	(gimp-selection-none image)
+);end define
+
+; our script
+(define (script-fu-add-text-outline
+									image
+									drawable
+									flag-border
+									colour-border
+									thickness-border
+									feather-border
+									flag-shadow
+									colour-shadow
+									thickness-shadow
+									feather-shadow
+									shadow-offset-x
+									shadow-offset-y)
+
+	;Prep
+	(gimp-context-push)
+	(gimp-image-undo-group-start image)
+	
+	;variable
+	(let*	(
+		(offset 100)
+		(drawable (car (gimp-image-active-drawable image)))
+		(layer (car (gimp-image-get-active-layer image)))
+		(border-layer 0)
+		(shadow-layer 0)
+		(pos (car (gimp-image-get-item-position image layer)))
+		(width (+ (car (gimp-drawable-width drawable)) (* 2 offset)))
+        (height (+ (car (gimp-drawable-height drawable))(* 2 offset)))
+		(old-x (car (gimp-drawable-offsets layer)))
+		(old-y (car (cdr (gimp-drawable-offsets layer))))
+		(x-coord (- old-x offset))
+		(y-coord (- old-y offset))
+		(name (car (gimp-drawable-get-name drawable)))
+		(group (car (gimp-layer-group-new image)))
+			)
+
+	;Creer le groupe de calques
+	(if (or flag-border shadow-border)
+		(begin
+		(set! group (car (gimp-layer-group-new image)))
+		(gimp-item-set-name group name)
+		(gimp-image-insert-layer image group 0 (+ pos 1))
+		(gimp-image-reorder-item image layer group 0)
+		)
+	)
+	
+	;Creer une bordure autour du texte
+	(if (= flag-border TRUE)
+		(begin
+		(set! border-layer (car (gimp-layer-new image width height RGBA-IMAGE "Bordure" 100 NORMAL-MODE)))
+		(gimp-image-insert-layer image border-layer group 1)
+		(gimp-layer-translate border-layer x-coord y-coord)
+		(create-selection image layer thickness-border feather-border)
+		(fill-selection image border-layer colour-border)
+		)
+	)		
+	
+	;Creer une ombre du texte
+	(if (= flag-shadow TRUE)
+		(begin
+		(set! shadow-layer (car (gimp-layer-new image width height RGBA-IMAGE "Ombre" 100 NORMAL-MODE)))
+		(gimp-image-insert-layer image shadow-layer group 2)
+		(gimp-layer-translate shadow-layer x-coord y-coord)
+		(create-selection image layer thickness-shadow feather-shadow)
+		(fill-selection image shadow-layer colour-shadow)
+		(gimp-layer-translate shadow-layer shadow-offset-x shadow-offset-y)
+		)
+	)
+	
+
+	
+	;Groupe actif
+	(if (or flag-border shadow-border)
+		(gimp-image-set-active-layer image group)
+	)
+
+	;Finish
+	(gimp-displays-flush)
+	(gimp-image-undo-group-end image)
+	(gimp-context-pop)
+
+	);end let
+);end define
+;This is the plugin registration function
+(script-fu-register "script-fu-add-text-outline"
+	"Bordures et ombres de texte"
+	"Dessine une bordure et/ou une ombre pour le texte actif"
+	"Sergeileduc"
+	"Sergeileduc" 
+	"2018 July"
+	"*"
+	SF-IMAGE "Input Image" 0
+	SF-DRAWABLE "Current Layer" 0
+	SF-TOGGLE "Appliquer une bordure ?" TRUE
+	SF-COLOR "Couleur" '(0 0 0)
+	SF-ADJUSTMENT "Epaisseur" '(2 0 20 1 10 0 0)
+	SF-ADJUSTMENT "Fondu/flou" '(2 0 20 1 10 0 0)
+	SF-TOGGLE "Appliquer une ombre ?" FALSE
+	SF-COLOR "Couleur" '(0 0 0)
+	SF-ADJUSTMENT "Epaisseur" '(2 0 20 1 10 0 0)
+	SF-ADJUSTMENT "Fondu/flou" '(2 0 20 1 10 0 0)
+	SF-ADJUSTMENT "Décalage en x (positif vers la droite, négatif vers la gauche" '(-5 -50 50 1 10 0 0)
+	SF-ADJUSTMENT "Décalage en y (positif vers le bas, négatif vers le haut" '(5 -50 50 1 10 0 0)
+	)
+
+( script-fu-menu-register
+	"script-fu-add-text-outline" "<Image>/DC-trad/Texte/")
