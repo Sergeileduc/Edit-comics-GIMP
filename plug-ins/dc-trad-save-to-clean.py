@@ -50,7 +50,7 @@ register(
 ],
 [],
 pythonSaveToClean,
-menu="<Image>/DC-trad/"
+menu="<Image>/DC-trad/Sauvegarder/"
 )
 
 main()

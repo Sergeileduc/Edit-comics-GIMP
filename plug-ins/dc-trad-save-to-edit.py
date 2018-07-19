@@ -64,7 +64,7 @@ register(
 ],
 [],
 pythonSaveToEdit,
-menu="<Image>/DC-trad/"
+menu="<Image>/DC-trad/Sauvegarder/"
 )
 
 main()
