@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-#
-
+# -*- coding: utf8 -*-
 # -------------------------------------------------------------------------------------
 #
 # This file is a Python plug-in for GIMP which imports text from a file
@@ -10,52 +9,32 @@
 
 import sys
 import codecs
-#for debug only gtk and gimpui
-import gtk, gimpui
 from gimpfu import *
 
-def debugMessage(Message):
-    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, Message)
-    dialog.run()
-    dialog.hide()
+#def debugMessage(Message):
+#    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, Message)
+#    dialog.run()
+#    dialog.hide()
 
-justification_list = ["Align\xc3\xa9 a gauche", "Align\xc3\xa9 a droite", "Centr\xc3\xa9", "Justifi\xc3\xa9"]
+justification_list = ["Aligné à gauche", "Aligné à droite", "Centré", "Justifié"]
 justification_values = [
     TEXT_JUSTIFY_LEFT, 
     TEXT_JUSTIFY_RIGHT, 
     TEXT_JUSTIFY_CENTER, 
     TEXT_JUSTIFY_FILL]
 alignment_list = ["top", "bottom", "middle"]
-hintstyle_list = ["Aucun", "L\xc3\xa9ger", "Moyen", "Full/Justifi\xc3\xa9"]
+hintstyle_list = ["Aucun", "Léger", "Moyen", "Full/Justifié"]
 hintstyle_values = [
     TEXT_HINT_STYLE_NONE,
     TEXT_HINT_STYLE_SLIGHT,
     TEXT_HINT_STYLE_MEDIUM,
     TEXT_HINT_STYLE_FULL]
 
-boxmode_list = [
-    "fixed",
-    "dynamic",
-    "shrink font size to fit",
-    "grow font size to fit",
-    "best font size fit",
-    "shrink width to fit",
-    "grow width to fit",
-    "best width",
-    "shrink height to fit",
-    "grow height to fit",
-    "best height" ]
+boxmode_list = ["fixed", "dynamic"]
 
-# arguments:
-#   image, active_layer, 
-#   source_path, source_seperator, font, font_size, antialias, hintstyle, 
-#   font_color, justification, vertical_align, indent, letter_spacing, 
-#   line_spacing, box_mode, language, padding_horz, padding_vert, offset_horz, 
-#   offset_vert, use_markdown
+
 def plugin_import_text_layers_path_dctrad(image, active_layer, 
     source_path, 
-    #source_seperator, 
-    #source_escaped, 
     font, 
     font_size, 
     antialias, 
@@ -76,12 +55,6 @@ def plugin_import_text_layers_path_dctrad(image, active_layer,
 
 def import_text_layers(image, active_layer, source_path, source_escaped, font, font_size, antialias, hintstyle, font_color, justification, indent, letter_spacing, line_spacing, box_mode, language, use_markdown):
   
-  #TODO
-  padding_horz = 0.0
-  padding_vert = 0.0
-  offset_horz = 0.0
-  offset_vert = 0.0
-  
   #source_file = file(source_path, 'r')
   source_file = codecs.open(source_path, "r", encoding="utf_8", buffering=0)
   raw_source = source_file.read()
@@ -98,19 +71,12 @@ def import_text_layers(image, active_layer, source_path, source_escaped, font, f
   pdb.gimp_image_undo_group_start(image)
   
   layer_position = 0
-  layer_offsetx = 0
-  layer_offsety = 0
   flag = False
-  layer_width = pdb.gimp_image_width(image)
-  layer_height = pdb.gimp_image_height(image)
   if (active_layer):
+    layer_height = pdb.gimp_image_height(image)
     layer_position = pdb.gimp_image_get_layer_position(image, active_layer)
-    layer_offsetx = active_layer.offsets[0]
-    layer_offsety = active_layer.offsets[1]
-    tlayer_x = layer_offsetx
-    tlayer_y = layer_offsety
-    layer_width = active_layer.width
-    layer_height = active_layer.height
+    tlayer_x = active_layer.offsets[0]
+    tlayer_y = active_layer.offsets[1]
     #get active vector, path and points
     vectors = pdb.gimp_image_get_active_vectors(image)
     nstrokes, strokes = pdb.gimp_vectors_get_strokes(vectors)
@@ -137,7 +103,7 @@ def import_text_layers(image, active_layer, source_path, source_escaped, font, f
           y_pos = cpoints[y_index]
         else:
           if (flag == False):
-            debugMessage('Attention \nLe nombre de points que vous avez selectionne ne correspond pas au nombre de lignes de texte du fichier.\nLe script va continuer en placant les lignes de texte restantes en bas de la page\nVous devriez verifier vos bulles, ou annuler pour recommencer, en pointant toutes les bulles et encarts de texte')
+            pdb.gimp_message('Attention !!!\nLe nombre de points que vous avez selectionné ne correspond pas au nombre de lignes de texte du fichier.\nLe script va continuer en placant les lignes de texte restantes en bas de la page.\nVous devriez vérifier vos bulles, ou annuler pour recommencer, en pointant toutes les bulles et encarts de texte.')
             flag = True
           x_pos = 500
           y_pos = layer_height - 200
@@ -154,7 +120,6 @@ def import_text_layers(image, active_layer, source_path, source_escaped, font, f
         pdb.gimp_text_layer_set_justification(tlayer, justification)
         #pdb.gimp_text_layer_set_kerning(tlayer, kerning)
         pdb.gimp_text_layer_set_hint_style(tlayer, hintstyle)
-        #pdb.gimp_text_layer_set_hinting(tlayer, hinting)
         pdb.gimp_text_layer_set_language(tlayer, language)
         pdb.gimp_text_layer_set_letter_spacing(tlayer, letter_spacing)
         pdb.gimp_text_layer_set_line_spacing(tlayer, line_spacing)
@@ -194,8 +159,6 @@ register(
     (PF_FLOAT,    "letter_spacing",   "Espacement de lettre",   0),
     (PF_OPTION,   "box_mode_index",   "Boite",         0, boxmode_list)],
     #(PF_STRING,   "language",         "language",         'English'),
-    #(PF_STRING,   "padding",          "padding",          '0,150'),
-    #(PF_STRING,   "offsets",          "offsets",          '600,200') ,
     #(PF_BOOL,     "use_markdown",     "use markdown",     True) ],
     [],
     plugin_import_text_layers_path_dctrad)
