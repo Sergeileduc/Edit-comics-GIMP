@@ -9,7 +9,7 @@
 	(gimp-context-set-sample-threshold-int seuil)
 	
 	(define images (vector->list (cadr (gimp-image-list))))
-	(map script-fu-clean-page-seuil images)
+	(map script-fu-clean-page images)
 	(gimp-displays-flush)
 	
 	;Finish
