@@ -1,6 +1,6 @@
 ;Script pour copier l'image originale dans un nouveau calque, au sommet, en non visible, et en vérouillé.
 
-(define (script-fu-copy-layer image drawable)
+(define (script-fu-copy-layer image)
 
 	;variable
 	(let*	(
@@ -39,7 +39,7 @@ Le script verouille les calques en deplacement, et verouille le calque original 
 "2008-06-28"
 "RGB*"
 SF-IMAGE "Input Image" 0
-SF-DRAWABLE "Current Layer" 0
+;SF-DRAWABLE "Current Layer" 0
 )
 
 ( script-fu-menu-register
