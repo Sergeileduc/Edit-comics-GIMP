@@ -69,7 +69,7 @@ def import_text_layers(image, active_layer, source_path, page_index, source_esca
     return
   
   #splits on "Page " + a sequence of numbers + a newline
-  pages = re.split(u"page [0-9]+(\r\n)", source.replace(special,''), flags=re.IGNORECASE)
+  pages = re.split(u"page [0-9]+(\r\n|\r|\n)", source.replace(special,''), flags=re.IGNORECASE)
   filtered = filter(lambda x: not re.match(r'^\s*$', x), pages)
   #pdb.gimp_message(filtered[int(page_index)-1])
   text_list = filtered[int(page_index)-1].splitlines()
