@@ -1,33 +1,16 @@
 ; To use this script, make sure that the selected layer is the one that you want to outline
-;
-; You will then be able to set various parameters for the outline. They are:
-;		Colour - what colour you want the outline to be
-;		Thickness - thickness of the outline (in pixels)
-;		Feather - how soft you want the edge of the outline to be
-;
-; The script will create a new, transparent layer underneath your selected layer, and draw the
-; outline into that new layer.|#
 
-;Selects the contents of the given layer, then grows it by "thickness"
-;and feathers it by "feather" pixels
+
+;Create selection
 (define (create-selection image layer thickness feather)
 	(gimp-image-select-item image CHANNEL-OP-REPLACE layer)
 	(if (> thickness 0)(gimp-selection-grow image thickness))
 	(if (> feather 0) (gimp-selection-feather image feather))
 );end define
 
-;Fills the current selection using the given colour, painting onto the
-;given layer.
+;Fill selection with colour
 (define (fill-selection image layer colour)
-;	# Cache existing foreground colour
-;	old_fg = pdb.gimp_palette_get_foreground()	
-;	# Set foreground colour
-;	pdb.gimp_palette_set_foreground(colour)	
-;	# Fill the selection
-;	pdb.gimp_bucket_fill(layer, 0, 0, 100, 0, 0, 1, 1)	
-;	# Restore cached foreground colour
-;	pdb.gimp_palette_set_foreground(old_fg)	
-;	return
+	;définit la couleur de premier plan
 	(gimp-context-set-foreground colour)
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
 		(gimp-drawable-edit-fill layer FILL-FOREGROUND)
@@ -121,8 +104,8 @@
 );end define
 ;This is the plugin registration function
 (script-fu-register "script-fu-add-text-outline"
-	"Bordures et ombres de texte"
-	"Dessine une bordure et/ou une ombre pour le texte actif"
+	"Bordures et ombres"
+	"Dessine une bordure et/ou une ombre pour le calque ou le texte actif"
 	"Sergeileduc"
 	"Sergeileduc" 
 	"2018 July"
@@ -142,4 +125,4 @@
 	)
 
 ( script-fu-menu-register
-	"script-fu-add-text-outline" "<Image>/DC-trad/Texte/")
+	"script-fu-add-text-outline" "<Image>/DC-trad/")
