@@ -10,6 +10,7 @@
 import sys
 import re
 import codecs
+import io
 from gimpfu import *
 
 #def debugMessage(Message):
@@ -45,10 +46,11 @@ def plugin_import_text_layers_path_dctrad(image, active_layer,
     justification_index, 
     #vertical_align_index, 
     line_spacing,
-    letter_spacing, 
-    box_mode_index):
+    letter_spacing): 
+    #box_mode_index
     #use_markdown):
   indent = 0
+  box_mode_index = 0 #box fixed mode
   font_color = '#000000'
   language = 'fr'
   font_size_int = int(font_size)
@@ -58,12 +60,22 @@ def plugin_import_text_layers_path_dctrad(image, active_layer,
 
 def import_text_layers(image, active_layer, source_path, page_index, source_escaped, font, font_size, antialias, hintstyle, font_color, justification, indent, letter_spacing, line_spacing, box_mode, language, use_markdown):
   special = u"\u2003"
-  #source_file = file(source_path, 'r')
-  source_file = codecs.open(source_path, "r", encoding="utf_8", buffering=0)
-  raw_source = source_file.read()
-  source_file.close()
+  try:
+    source_file = io.open(source_path, "rt", encoding="utf_8")
+    raw_source = source_file.read()
+    source_file.close()
+  except UnicodeDecodeError:
+    pdb.gimp_message("Le script n'a pas pu utiliser l'encodage de texte UTF-8, et va utiliser un encodage par défaut. \nEncas de problème, vous devriez envisager d'enregistrer les fichiers textes avec l'encodeage UTF-8, à l'avenir")
+    source_file = io.open(source_path, "rt")
+    raw_source = source_file.read()
+    source_file.close()
   if (raw_source):
-    source = raw_source
+    #BOM or NO-BOM UTF-8 files
+    if raw_source.startswith(codecs.BOM_UTF8):
+      #pdb.gimp_message("FICHIER AVEC BOM")
+      source = raw_source.replace(codecs.BOM_UTF8, '', 1)
+    else:
+      source = raw_source
   else:
     pdb.gimp_message("failure: invalid source file(\""+source_path+"\")")
     return
@@ -172,8 +184,8 @@ register(
     #(PF_COLOR,    "font_color",       "font color",       '#000000'),
     (PF_OPTION,   "justification_index","Justification",  2, justification_list),
     (PF_SPINNER,    "line_spacing",     "Espacement de ligne",     0.0, (0.0, 200.0, 0.1)),
-    (PF_SPINNER,    "letter_spacing",   "Espacement de lettre",   0.0, (0.0, 200.0, 0.1)),
-    (PF_OPTION,   "box_mode_index",   "Boite",         0, boxmode_list)],
+    (PF_SPINNER,    "letter_spacing",   "Espacement de lettre",   0.0, (0.0, 200.0, 0.1))],
+    #(PF_OPTION,   "box_mode_index",   "Boite",         0, boxmode_list),
     [],
     plugin_import_text_layers_path_dctrad)
 
