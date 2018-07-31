@@ -22,6 +22,7 @@ palettes/
 patterns/
 templates/
 tmp/
+Themes/
 tool-options/
 tool-presets/
 action-history
@@ -74,3 +75,8 @@ plug-ins/export-layer.py
 plug-ins/jpeg-to-xcf.py
 plug-ins/save-to.py
 plug-ins/import_text.py
+plug-ins/resynthesizer
+plug-ins/resynthesizer_gui
+scripts/.DS_Store
+plug-ins/.DS_Store
+.DS_Store
