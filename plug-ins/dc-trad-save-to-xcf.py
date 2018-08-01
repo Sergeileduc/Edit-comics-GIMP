@@ -41,12 +41,12 @@ def pythonSaveToXCF(image,drawable) :
 
 register(
 "python-save-to-xcf",
-"Sauvegarde vers le dossier XCF",
-"Sauvegarde vers le dossier XCF",
+"Sauvegarde vers le dossier XCF (en xcf)",
+"Sauvegarde vers le dossier XCF (en xcf)",
 "Sergeileduc",
 "Sergeileduc",
 "2018",
-"6) Sauve vers le dossier \"-XCF\"",		#Menu path
+"6) Sauve vers le dossier \"-XCF\" (en xcf)",		#Menu path
 "RGB*, GRAY*", 
 [
 (PF_IMAGE, "image",       "Input image", None),

@@ -37,12 +37,12 @@ def pythonSaveToClean(image,drawable) :
 
 register(
 "python-save-to-clean",                           
-"Sauvegarde vers le dossier clean",
-"Sauvegarde vers le dossier clean",
+"Sauvegarde vers le dossier clean (en jpeg)",
+"Sauvegarde vers le dossier clean (en jpeg)",
 "Sergeileduc",
 "Sergeileduc",
 "2018",
-"5) Sauve vers le dossier \"-clean\"",             #Menu path
+"5) Sauve vers le dossier \"-clean\" (en jpeg)",             #Menu path
 "RGB*, GRAY*", 
 [
 (PF_IMAGE, "image",       "Input image", None),
