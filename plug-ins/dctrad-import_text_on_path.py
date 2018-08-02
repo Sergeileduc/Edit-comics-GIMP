@@ -44,7 +44,6 @@ def plugin_import_text_layers_path_dctrad(image, active_layer,
     hintstyle_index, 
     #font_color, 
     justification_index, 
-    #vertical_align_index, 
     line_spacing,
     letter_spacing): 
     #box_mode_index
@@ -59,13 +58,15 @@ def plugin_import_text_layers_path_dctrad(image, active_layer,
   return import_text_layers(image, active_layer, source_path, page_index, source_escaped, font, font_size_int, antialias, hintstyle_values[hintstyle_index], font_color, justification_values[justification_index], indent, letter_spacing, line_spacing, boxmode_list[box_mode_index], language, use_markdown)
 
 def import_text_layers(image, active_layer, source_path, page_index, source_escaped, font, font_size, antialias, hintstyle, font_color, justification, indent, letter_spacing, line_spacing, box_mode, language, use_markdown):
+  regex = r"(?i)page [0-9]+(\r\n|\r|\n)"
+  #special character for page jumps
   special = u"\u2003"
   try:
     source_file = io.open(source_path, "rt", encoding="utf_8")
     raw_source = source_file.read()
     source_file.close()
   except UnicodeDecodeError:
-    pdb.gimp_message("Le script n'a pas pu utiliser l'encodage de texte UTF-8, et va utiliser un encodage par défaut. \nEncas de problème, vous devriez envisager d'enregistrer les fichiers textes avec l'encodeage UTF-8, à l'avenir")
+    pdb.gimp_message("Le script n'a pas pu utiliser l'encodage de texte UTF-8, et va utiliser un encodage par défaut.\nEncas de problème, vous devriez envisager d'enregistrer les fichiers textes avec l'encodeage UTF-8, à l'avenir")
     source_file = io.open(source_path, "rt")
     raw_source = source_file.read()
     source_file.close()
@@ -81,7 +82,8 @@ def import_text_layers(image, active_layer, source_path, page_index, source_esca
     return
   
   #splits on "Page " + a sequence of numbers + a newline
-  pages = re.split(u"page [0-9]+(\r\n|\r|\n)", source.replace(special,''), flags=re.IGNORECASE)
+  #pages = re.split(u"(?i)page [0-9]+(\r\n|\r|\n)", source.replace(special,''), flags=re.IGNORECASE)
+  pages = re.split(regex, source.replace(special,''))
   filtered = filter(lambda x: not re.match(r'^\s*$', x), pages)
   #pdb.gimp_message(filtered[int(page_index)-1])
   text_list = filtered[int(page_index)-1].splitlines()
@@ -148,7 +150,6 @@ def import_text_layers(image, active_layer, source_path, page_index, source_esca
         pdb.gimp_text_layer_set_color(tlayer, font_color)
         pdb.gimp_text_layer_set_indent(tlayer, indent)
         pdb.gimp_text_layer_set_justification(tlayer, justification)
-        #pdb.gimp_text_layer_set_kerning(tlayer, kerning)
         pdb.gimp_text_layer_set_hint_style(tlayer, hintstyle)
         pdb.gimp_text_layer_set_language(tlayer, language)
         pdb.gimp_text_layer_set_letter_spacing(tlayer, letter_spacing)
