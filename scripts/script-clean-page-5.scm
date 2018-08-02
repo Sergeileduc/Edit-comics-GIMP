@@ -1,11 +1,11 @@
-(define (script-fu-clean-page-auto-5 image drawable)
+(define (script-fu-clean-page-auto-5 image)
 
 	;Prep
 	(gimp-context-push)
 
 	;On fixe le seuil de détection à 5
 	(gimp-context-set-sample-threshold-int 5)
-	
+
 	;on lance le script clean page
 	(script-fu-clean-page image)
 
@@ -13,6 +13,7 @@
 	(gimp-context-pop)
 )
 
+;Gimp register
 (script-fu-register "script-fu-clean-page-auto-5"
 "4) Clean page - Auto - seuil 5"
 "Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme.\
@@ -24,7 +25,8 @@ Utilisez les scripts avec d'autres seuils en cas de problème"
 "2008-06-28"
 "RGB*"
 SF-IMAGE "Input Image" 0
-SF-DRAWABLE "Current Layer" 0
 )
-( script-fu-menu-register
-	"script-fu-clean-page-auto-5" "<Image>/DC-trad/")
+;Gimp menu register
+(script-fu-menu-register
+	"script-fu-clean-page-auto-5" "<Image>/DC-trad/"
+)
