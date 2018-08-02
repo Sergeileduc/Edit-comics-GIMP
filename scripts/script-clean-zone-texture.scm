@@ -1,4 +1,4 @@
-(define (script-fu-clean-texture image drawable seuil grow-pixel sampling-width sample-from filling-order flou)
+(define (script-fu-clean-texture image drawable seuil grow-pixel sampling-width sample-from filling-order flou_bool flou feather delta)
 
 	;Prep
 	(gimp-context-push)
@@ -7,18 +7,14 @@
 	(gimp-image-get-selection image)
 	(let* (
 		(drawable (car (gimp-image-active-drawable image)))
-		(select-bounds (gimp-selection-bounds image))
-		(select-x1 (cadr select-bounds))
-		(select-y1 (caddr select-bounds))
-		(select-x2 (cadr (cddr select-bounds)))
-		(select-y2 (caddr (cddr select-bounds)))
-		(select-width (- select-x2 select-x1))
-		(select-height (- select-y2 select-y1))
+		;(layer (car (gimp-image-get-active-layer image)))
+		;(userSelection 0)
 		)
 
 	;Test selection vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
 		(begin
+		;(gimp-image-set-active-layer image layer)
 		;intersection avec le couleur de PP
 		(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
 		;test si la couleur AP est correcte
@@ -28,8 +24,14 @@
 			;heal selection
 			(python-fu-heal-selection 1 image drawable sampling-width sample-from filling-order)
 			;flou
-			(gimp-image-select-round-rectangle image CHANNEL-OP-REPLACE select-x1 select-y1 select-width select-height 5 5)
-			(plug-in-gauss 0 image drawable flou flou 0)
+			(if(= flou_bool TRUE)
+				(begin
+				(gimp-selection-feather image feather)
+				;(plug-in-gauss 0 image drawable flou flou 0)
+				(plug-in-sel-gauss 0 image drawable flou delta)
+				)
+			)
+
 			(gimp-selection-none image)
 			(gimp-displays-flush)
 			);message d'erreur sur la couleur de PP
@@ -66,9 +68,14 @@ SF-ADJUSTMENT "Agrandir la sélection autour des lettres de n (pixels)\
 SF-ADJUSTMENT "Context sampling width \(pixels\)" '(10 0 100 1 10 0 0)
 SF-OPTION "Sample from" '("All around" "Sides" "Above and below")
 SF-OPTION "Filling order" '("Random" "Inwards towards center" "Outwards from center")
-;SF-TOGGLE "Flouter avec un flou gaussien après la correction ?" FALSE
-SF-ADJUSTMENT "Intensité du flou gaussien à appliquer en fin de script pour gommer les défauts\
-0 pas de flou / 2 léger flou" '(0 0 10 1 10 0 0)
+SF-TOGGLE "FACULTATIF : Flouter avec un flou gaussien sélectif \(qui conserve les lignes contrastées\) après la correction ?\
+\(tout ce qui suit concerne un flou facultatif\)" FALSE
+SF-ADJUSTMENT "Intensité du flou gaussien sélectif à appliquer en fin de script pour gommer les défauts" '(5 0 10 1 10 0 0)
+SF-ADJUSTMENT "Fondu entre zone floue et zone nette\
+0 pas de fondu" '(20 0 40 1 10 0 0)
+SF-ADJUSTMENT "Seuil de contraste à ne pas flouter\
+\(évite que des objets contrastés, comme des lignes noires, etc... ne soient floutées\)\
+50 est le seuil par défaut" '(51 0 255 1 10 0 0)
 )
 
 ( script-fu-menu-register
