@@ -5,33 +5,27 @@
 	(gimp-image-undo-group-start image)
 	(gimp-context-set-sample-threshold-int seuil)
 	(gimp-image-get-selection image)
-	(let* (
-		(drawable (car (gimp-image-active-drawable image)))
-		;(layer (car (gimp-image-get-active-layer image)))
-		;(userSelection 0)
-		)
 
 	;Test selection vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
 		(begin
-		;(gimp-image-set-active-layer image layer)
 		;intersection avec le couleur de PP
 		(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-foreground)))
 		;test si la couleur AP est correcte
 		(if (= (car (gimp-selection-is-empty image)) FALSE)
 			(begin
 			(gimp-selection-grow image grow-pixel)
-			;heal selection
+			;Resynthesizer heal selection
 			(python-fu-heal-selection 1 image drawable sampling-width sample-from filling-order)
 			;flou
 			(if(= flou_bool TRUE)
 				(begin
 				(gimp-selection-feather image feather)
-				;(plug-in-gauss 0 image drawable flou flou 0)
 				(plug-in-sel-gauss 0 image drawable flou delta)
-				)
-			)
+				);end begin
+			);end if appliquer un flou
 
+			;flush display
 			(gimp-selection-none image)
 			(gimp-displays-flush)
 			);message d'erreur sur la couleur de PP
@@ -40,12 +34,12 @@ Utilisez la PIPETTE\
 Ou augmentez le seuil"));end if couleur
 		);message d'erreur selection utilisateur
 		(gimp-message "Aucune sélection !!!\
-Veuillez sélectionner la zone à corriger"));end if selection utilisateur vide
+Veuillez sélectionner la zone à corriger")
+	);end if selection utilisateur vide
 
 	;Finish
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
-	);end let
 )
 
 (script-fu-register "script-fu-clean-texture"
