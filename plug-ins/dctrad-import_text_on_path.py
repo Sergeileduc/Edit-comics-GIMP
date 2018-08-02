@@ -20,9 +20,9 @@ from gimpfu import *
 
 justification_list = ["Aligné à gauche", "Aligné à droite", "Centré", "Justifié"]
 justification_values = [
-    TEXT_JUSTIFY_LEFT, 
-    TEXT_JUSTIFY_RIGHT, 
-    TEXT_JUSTIFY_CENTER, 
+    TEXT_JUSTIFY_LEFT,
+    TEXT_JUSTIFY_RIGHT,
+    TEXT_JUSTIFY_CENTER,
     TEXT_JUSTIFY_FILL]
 alignment_list = ["top", "bottom", "middle"]
 hintstyle_list = ["Aucun", "Léger", "Moyen", "Full/Justifié"]
@@ -31,21 +31,26 @@ hintstyle_values = [
     TEXT_HINT_STYLE_SLIGHT,
     TEXT_HINT_STYLE_MEDIUM,
     TEXT_HINT_STYLE_FULL]
-
 boxmode_list = ["fixed", "dynamic"]
 
+#multiple replace function
+def replace(string, substitutions):
+    substrings = sorted(substitutions, key=len, reverse=True)
+    regex = re.compile('|'.join(map(re.escape, substrings)))
+    return regex.sub(lambda match: substitutions[match.group(0)], string)
 
-def plugin_import_text_layers_path_dctrad(image, active_layer, 
-    source_path, 
+def plugin_import_text_layers_path_dctrad(image,
+    active_layer,
+    source_path,
     page_index,
-    font, 
-    font_size, 
-    antialias, 
-    hintstyle_index, 
-    #font_color, 
-    justification_index, 
+    font,
+    font_size,
+    antialias,
+    hintstyle_index,
+    #font_color,
+    justification_index,
     line_spacing,
-    letter_spacing): 
+    letter_spacing):
     #box_mode_index
     #use_markdown):
   indent = 0
@@ -57,10 +62,30 @@ def plugin_import_text_layers_path_dctrad(image, active_layer,
   source_escaped = False
   return import_text_layers(image, active_layer, source_path, page_index, source_escaped, font, font_size_int, antialias, hintstyle_values[hintstyle_index], font_color, justification_values[justification_index], indent, letter_spacing, line_spacing, boxmode_list[box_mode_index], language, use_markdown)
 
-def import_text_layers(image, active_layer, source_path, page_index, source_escaped, font, font_size, antialias, hintstyle, font_color, justification, indent, letter_spacing, line_spacing, box_mode, language, use_markdown):
+def import_text_layers(image,
+  active_layer,
+  source_path,
+  page_index,
+  source_escaped,
+  font,
+  font_size,
+  antialias,
+  hintstyle,
+  font_color,
+  justification,
+  indent,
+  letter_spacing,
+  line_spacing,
+  box_mode,
+  language,
+  use_markdown):
+  #Regex used for split the page
   regex = r"(?i)page [0-9]+(\r\n|\r|\n)"
   #special character for page jumps
   special = u"\u2003"
+  #special character like WORD page jump, UTF-8 (...), etc... to be replaced
+  substitutions = {u"\u2003": '', u"\u2026": '...', ' \n':''}
+
   try:
     source_file = io.open(source_path, "rt", encoding="utf_8")
     raw_source = source_file.read()
@@ -80,16 +105,16 @@ def import_text_layers(image, active_layer, source_path, page_index, source_esca
   else:
     pdb.gimp_message("failure: invalid source file(\""+source_path+"\")")
     return
-  
-  #splits on "Page " + a sequence of numbers + a newline
-  #pages = re.split(u"(?i)page [0-9]+(\r\n|\r|\n)", source.replace(special,''), flags=re.IGNORECASE)
-  pages = re.split(regex, source.replace(special,''))
-  filtered = filter(lambda x: not re.match(r'^\s*$', x), pages)
-  #pdb.gimp_message(filtered[int(page_index)-1])
-  text_list = filtered[int(page_index)-1].splitlines()
-  
+
+  #split pages
+  pages_array = filter(lambda x: not re.match(r'^\s*$', x), re.split(regex, source))
+  #clean working page
+  page = replace(pages_array[int(page_index)-1], substitutions)
+  #split into lines
+  text_lines = page.splitlines()
+
   pdb.gimp_image_undo_group_start(image)
-  
+
   layer_position = 0
   flag = False
   if (active_layer):
@@ -113,13 +138,13 @@ def import_text_layers(image, active_layer, source_path, page_index, source_esca
     y_pos = 0.0
     tlayer_width = 450
     tlayer_height = 150
-  
-  for rawtext in text_list:
+
+  for rawtext in text_lines:
     if (source_escaped):
       text = rawtext.decode('unicode_escape')
     else:
       text = rawtext
-    
+
     if (text != '//' and text != ''):
         if (len(text) < 20):
           tlayer_width = 150
@@ -127,8 +152,8 @@ def import_text_layers(image, active_layer, source_path, page_index, source_esca
         else:
           tlayer_width = 450
           tlayer_height = 150
-        
-        
+
+
         if (x_index < n_points):
           #Text position from path
           x_pos = cpoints[x_index]
@@ -139,13 +164,13 @@ def import_text_layers(image, active_layer, source_path, page_index, source_esca
             flag = True
           x_pos = 500
           y_pos = layer_height - 200
-        
+
         x_index += 6
         y_index += 6
-        
+
         tlayer = pdb.gimp_text_layer_new(image, text, font, font_size, 0)
         pdb.gimp_image_add_layer(image, tlayer, layer_position)
-        
+
         pdb.gimp_text_layer_set_antialias(tlayer, antialias)
         pdb.gimp_text_layer_set_color(tlayer, font_color)
         pdb.gimp_text_layer_set_indent(tlayer, indent)
@@ -154,17 +179,15 @@ def import_text_layers(image, active_layer, source_path, page_index, source_esca
         pdb.gimp_text_layer_set_language(tlayer, language)
         pdb.gimp_text_layer_set_letter_spacing(tlayer, letter_spacing)
         pdb.gimp_text_layer_set_line_spacing(tlayer, line_spacing)
-        
-        pdb.gimp_text_layer_resize(tlayer, tlayer_width, tlayer_height)    
+
+        pdb.gimp_text_layer_resize(tlayer, tlayer_width, tlayer_height)
         pdb.gimp_layer_set_offsets(tlayer, x_pos , y_pos)
         pdb.gimp_item_set_visible(tlayer, True)
-  
+
   pdb.gimp_image_undo_group_end(image)
-  
-  return
+  return #end of function
 
-
-
+#Register in Gimp
 register(
     "plugin_import_text_layers_path_dctrad",
     "Importer le texte le long du chemin trace",
