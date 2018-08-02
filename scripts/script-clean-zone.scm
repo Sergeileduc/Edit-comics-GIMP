@@ -8,7 +8,6 @@
 	
 	;Recupere la selection utilisateur
 	(gimp-image-get-selection image)
-	
 	;test la sélection utilisateur est vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
 	(begin
@@ -27,16 +26,18 @@
 	(gimp-message "Aucune sélection !\
 Veuillez d'abord sélectionner une zone \(rectangulaire par exemple\) !!!")
 	);end if selection utilisateur
-	
+
 	;Finish
 	(gimp-displays-flush)
 	(gimp-selection-none image)
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
 
-)
+);end define
 
-(script-fu-register "script-fu-clean-zone"
+;Gimp register
+(script-fu-register
+	"script-fu-clean-zone"
 	"3) Clean zone \(seuil=2)..."
 	"Clean toutes les bulles de la zone avec la couleur de AP\
 ...................\
@@ -49,6 +50,7 @@ Veuillez d'abord sélectionner une zone \(rectangulaire par exemple\) !!!")
 	SF-IMAGE "Input Image" 0
 	SF-DRAWABLE "Current Layer" 0
 )
-
-( script-fu-menu-register
-	"script-fu-clean-zone" "<Image>/DC-trad/")
+;Gimp menu register
+(script-fu-menu-register
+	"script-fu-clean-zone" "<Image>/DC-trad/"
+	)
