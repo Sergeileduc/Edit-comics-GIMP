@@ -80,7 +80,7 @@ def import_text_layers(image,
   language,
   use_markdown):
   #Regex used for split the page
-  regex = r"(?i)page [0-9]+.*(\r\n|\r|\n)"
+  regex = r"^(?i)page [0-9]+.*(\r\n|\r|\n)"
   #special character for page jumps
   special = u"\u2003"
   #special character like WORD page jump, UTF-8 (...), etc... to be replaced
@@ -107,7 +107,7 @@ def import_text_layers(image,
     return
 
   #split pages
-  pages_array = filter(lambda x: not re.match(r'^\s*$', x), re.split(regex, source))
+  pages_array = filter(lambda x: not re.match(r'^\s*$', x), re.split(regex, source, flags=re.MULTILINE))
   #clean working page
   page = replace(pages_array[int(page_index)-1], substitutions)
   #split into lines
