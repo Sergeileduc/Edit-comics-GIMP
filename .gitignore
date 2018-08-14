@@ -48,13 +48,6 @@ plug-ins/plugin-uncrop.py
 plug-ins/README_WINDOWS.txt
 plug-ins/resynthesizer-gui.exe
 plug-ins/resynthesizer.exe
-pluginrc
-profilerc
-sessionrc
-tags.xml
-templaterc
-themerc
-*.settings
 plug-ins/export-layer.py
 plug-ins/jpeg-to-xcf.py
 plug-ins/save-to.py
@@ -63,5 +56,13 @@ plug-ins/resynthesizer
 plug-ins/resynthesizer_gui
 scripts/.DS_Store
 plug-ins/.DS_Store
+scripts/desktop.ini
 .DS_Store
 .*
+pluginrc
+profilerc
+sessionrc
+tags.xml
+templaterc
+themerc
+*.settings

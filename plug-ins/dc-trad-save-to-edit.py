@@ -10,7 +10,7 @@
 from gimpfu import *
 import os
 
-def pythonSaveToEdit(image,drawable) :
+def pythonSaveToEdit(image) :
 
 	#Prep
 	pdb.gimp_image_undo_group_start(image)
@@ -31,7 +31,7 @@ def pythonSaveToEdit(image,drawable) :
 	out_xcf=os.path.join(path2,name)
 	out_file=os.path.splitext(out_file)[0]+'.jpg'
 	out_xcf=os.path.splitext(out_xcf)[0]+'.xcf'
-	
+
 	if not os.path.exists(path):
 		os.makedirs(path)
 	if not os.path.exists(path2):
@@ -43,7 +43,7 @@ def pythonSaveToEdit(image,drawable) :
 	pdb.gimp_image_delete(new_image)
 	pdb.gimp_file_save(image, drawable, out_xcf, out_xcf)
 	pdb.gimp_image_clean_all(image)
-	
+
 	#finish
 	pdb.gimp_context_pop()
 	pdb.gimp_image_undo_group_end(image)
@@ -57,10 +57,10 @@ register(
 "Sergeileduc",
 "2018",
 "7) Sauve vers les dossiers \"-Edit\" et \"-XCF\"",		#Menu path
-"RGB*, GRAY*", 
+"RGB*, GRAY*",
 [
 (PF_IMAGE, "image",       "Input image", None),
-(PF_DRAWABLE, "drawable", "Input drawable", None),
+#(PF_DRAWABLE, "drawable", "Input drawable", None),
 ],
 [],
 pythonSaveToEdit,

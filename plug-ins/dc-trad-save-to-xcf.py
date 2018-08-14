@@ -10,7 +10,7 @@
 from gimpfu import *
 import os
 
-def pythonSaveToXCF(image,drawable) :
+def pythonSaveToXCF(image) :
 
 	#Prep
 	pdb.gimp_image_undo_group_start(image)
@@ -27,13 +27,13 @@ def pythonSaveToXCF(image,drawable) :
 	name=os.path.basename(filename)
 	out_xcf=os.path.join(path,name)
 	out_xcf=os.path.splitext(out_xcf)[0]+'.xcf'
-	
+
 	if not os.path.exists(path):
 		os.makedirs(path)
 
 	pdb.gimp_file_save(image, drawable, out_xcf, out_xcf)
 	pdb.gimp_image_clean_all(image)
-	
+
 	#finish
 	pdb.gimp_context_pop()
 	pdb.gimp_image_undo_group_end(image)
@@ -47,10 +47,10 @@ register(
 "Sergeileduc",
 "2018",
 "6) Sauve vers le dossier \"-XCF\" (en xcf)",		#Menu path
-"RGB*, GRAY*", 
+"RGB*, GRAY*",
 [
 (PF_IMAGE, "image",       "Input image", None),
-(PF_DRAWABLE, "drawable", "Input drawable", None),
+#(PF_DRAWABLE, "drawable", "Input drawable", None),
 ],
 [],
 pythonSaveToXCF,

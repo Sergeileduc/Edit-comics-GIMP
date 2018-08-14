@@ -10,7 +10,7 @@
 from gimpfu import *
 import os
 
-def pythonSaveToEditJpeg(image,drawable) :
+def pythonSaveToEditJpeg(image) :
 
 	#Prep
 	pdb.gimp_image_undo_group_start(image)
@@ -27,16 +27,16 @@ def pythonSaveToEditJpeg(image,drawable) :
 	name=os.path.basename(filename)
 	out_file=os.path.join(path,name)
 	out_file=os.path.splitext(out_file)[0]+'.jpg'
-	
+
 	if not os.path.exists(path):
 		os.makedirs(path)
-	
+
 	new_image = pdb.gimp_image_duplicate(image)
 	layer = pdb.gimp_image_merge_visible_layers(new_image, CLIP_TO_IMAGE)
 	pdb.gimp_file_save(new_image, layer, out_file, out_file)
 	pdb.gimp_image_delete(new_image)
 	pdb.gimp_image_clean_all(image)
-	
+
 	#finish
 	pdb.gimp_context_pop()
 	pdb.gimp_image_undo_group_end(image)
@@ -50,10 +50,10 @@ register(
 "Sergeileduc",
 "2018",
 "8) Sauve vers le dossier \"-Edit\" en jpeg uniquement",		#Menu path
-"RGB*, GRAY*", 
+"RGB*, GRAY*",
 [
 (PF_IMAGE, "image",       "Input image", None),
-(PF_DRAWABLE, "drawable", "Input drawable", None),
+#(PF_DRAWABLE, "drawable", "Input drawable", None),
 ],
 [],
 pythonSaveToEditJpeg,
