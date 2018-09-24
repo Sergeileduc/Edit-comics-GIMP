@@ -37,7 +37,7 @@ Sélectionnez des bulles avec la baguette magique")
 Sélectionnez vos bulles en les sélectionnant avec la baguette magique avant de lancer le script"
 "Sergeileduc"
 "Sergeileduc"
-"2008-06-28"
+"2018-08"
 "RGB*"
 SF-IMAGE "Input Image" 0
 SF-DRAWABLE "Current Layer" 0

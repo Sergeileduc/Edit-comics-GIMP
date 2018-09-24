@@ -7,7 +7,7 @@
 	;Prep
 	;(gimp-context-push)
 	(gimp-image-undo-group-start image)
-	
+
 	(gimp-image-select-color image CHANNEL-OP-REPLACE drawable (car (gimp-context-get-background)))
 	(gimp-selection-invert image)
 	(gimp-selection-flood image)
@@ -37,7 +37,7 @@ Vérifiez la couleur d'arrière-plan ou utilisez des scripts avec un seuil plus 
 "Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme."
 "Sergeileduc"
 "Sergeileduc"
-"2008-06-28"
+"2018-08"
 "RGB*"
 SF-IMAGE "Input Image" 0
 )

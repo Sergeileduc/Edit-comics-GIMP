@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Save to "Edit"
+# Save to "PSD"
 # Created by Sergeileduc
 # ------------
 #| Change Log |
@@ -10,7 +10,7 @@
 from gimpfu import *
 import os
 
-def pythonSaveToEditJpeg(image) :
+def pythonSaveToPSD(image) :
 
 	#Prep
 	pdb.gimp_image_undo_group_start(image)
@@ -21,20 +21,18 @@ def pythonSaveToEditJpeg(image) :
 	filename = pdb.gimp_image_get_filename(image)
 	temp = filename.replace("_CLEAN", "")
 	temp2 = temp.replace("_EDIT", "")
-	filename = temp2.replace("_XCF", "")
+	temp = temp2.replace("_XCF", "")
+	filename = temp.replace("_PSD", "")
 	path=os.path.dirname(filename)
-	path += "_EDIT"
+	path += "_PSD"
 	name=os.path.basename(filename)
-	out_file=os.path.join(path,name)
-	out_file=os.path.splitext(out_file)[0]+'.jpg'
+	out_psd=os.path.join(path,name)
+	out_psd=os.path.splitext(out_psd)[0]+'.psd'
 
 	if not os.path.exists(path):
 		os.makedirs(path)
 
-	new_image = pdb.gimp_image_duplicate(image)
-	layer = pdb.gimp_image_merge_visible_layers(new_image, CLIP_TO_IMAGE)
-	pdb.gimp_file_save(new_image, layer, out_file, out_file)
-	pdb.gimp_image_delete(new_image)
+	pdb.gimp_file_save(image, drawable, out_psd, out_psd)
 	pdb.gimp_image_clean_all(image)
 
 	#finish
@@ -43,20 +41,20 @@ def pythonSaveToEditJpeg(image) :
 	pdb.gimp_displays_flush()
 
 register(
-"python-save-to-edit-jpeg",
-"Sauvegarde vers les dossiers Edit en jpeg",
-"Sauvegarde vers les dossiers Edit en jpeg uniquement",
+"python-save-to-psd",
+"Sauvegarde vers le dossier PSD (en .psd)",
+"Sauvegarde vers le dossier PSD (en .psd) (format PHOTOSHOP)",
 "Sergeileduc",
 "Sergeileduc",
 "2018-08",
-"8) Sauve vers le dossier \"-Edit\" en jpeg uniquement",		#Menu path
+"9) [PHOTOSHOP] Sauve vers le dossier \"_PSD\" (en .psd)",		#Menu path
 "RGB*, GRAY*",
 [
 (PF_IMAGE, "image",       "Input image", None),
 #(PF_DRAWABLE, "drawable", "Input drawable", None),
 ],
 [],
-pythonSaveToEditJpeg,
+pythonSaveToPSD,
 menu="<Image>/DC-trad/Sauvegarder/"
 )
 

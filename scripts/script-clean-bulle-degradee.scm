@@ -47,7 +47,7 @@ alors utilisez la pipette sur les lettres..
 Veuillez d'abord sélectionner une (ou plusieurs bulles) \(avec l'outil baguette magique par exemple\)"
 "Sergeileduc"
 "Sergeileduc"
-"2018-06-28"
+"2018-08"
 "RGB*"
 SF-IMAGE "Input Image" 0
 SF-DRAWABLE "Current Layer" 0

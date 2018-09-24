@@ -55,7 +55,7 @@ register(
 "Sauvegarde vers les dossiers Edit et XCF",
 "Sergeileduc",
 "Sergeileduc",
-"2018",
+"2018-08",
 "7) Sauve vers les dossiers \"-Edit\" et \"-XCF\"",		#Menu path
 "RGB*, GRAY*",
 [

@@ -194,7 +194,7 @@ register(
     "Import text from file to layers on path",
     "Sergeileduc",
     "",
-    "2018",
+    "2018-08",
     "<Image>/DC-trad/Importer un texte sur un chemin",
     "*",
     # (type, name, description, default [, extra])

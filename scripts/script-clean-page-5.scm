@@ -22,7 +22,7 @@
 Utilisez les scripts avec d'autres seuils en cas de problème"
 "Sergeileduc"
 "Sergeileduc"
-"2008-06-28"
+"2018-08"
 "RGB*"
 SF-IMAGE "Input Image" 0
 )

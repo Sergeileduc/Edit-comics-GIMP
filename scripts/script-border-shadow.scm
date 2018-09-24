@@ -36,7 +36,7 @@
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
-	
+
 	;variable
 	(let*	(
 		(offset 100)
@@ -64,7 +64,7 @@
 		(gimp-image-reorder-item image layer group 0)
 		)
 	)
-	
+
 	;Creer une bordure autour du texte
 	(if (= flag-border TRUE)
 		(begin
@@ -74,8 +74,8 @@
 		(create-selection image layer thickness-border feather-border)
 		(fill-selection image border-layer colour-border)
 		)
-	)		
-	
+	)
+
 	;Creer une ombre du texte
 	(if (= flag-shadow TRUE)
 		(begin
@@ -87,9 +87,9 @@
 		(gimp-layer-translate shadow-layer shadow-offset-x shadow-offset-y)
 		)
 	)
-	
 
-	
+
+
 	;Groupe actif
 	(if (or flag-border shadow-border)
 		(gimp-image-set-active-layer image group)
@@ -107,8 +107,8 @@
 	"Bordures et ombres"
 	"Dessine une bordure et/ou une ombre pour le calque ou le texte actif"
 	"Sergeileduc"
-	"Sergeileduc" 
-	"2018 July"
+	"Sergeileduc"
+	"2018-08"
 	"*"
 	SF-IMAGE "Input Image" 0
 	SF-DRAWABLE "Current Layer" 0

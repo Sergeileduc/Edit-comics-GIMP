@@ -14,7 +14,7 @@
 Le script verouille les calques en deplacement, et verouille le calque original pour le rendre non modifiable"
 "Sergeileduc"
 "Sergeileduc"
-"2008-06-28"
+"2018-08"
 "RGB*"
 ;SF-IMAGE "Input Image" 0
 ;SF-DRAWABLE "Current Layer" 0

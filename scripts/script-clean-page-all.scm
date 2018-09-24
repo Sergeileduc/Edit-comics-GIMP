@@ -7,11 +7,11 @@
 	(gimp-context-push)
 	;On fixe le seuil de détection
 	(gimp-context-set-sample-threshold-int seuil)
-	
+
 	(define images (vector->list (cadr (gimp-image-list))))
 	(map script-fu-clean-page images)
 	(gimp-displays-flush)
-	
+
 	;Finish
 	(gimp-context-pop)
 )
@@ -21,7 +21,7 @@
 "Clean toutes les bulles de TOUTES les images ouvertes (de la couleur de l'AP)"
 "Sergeileduc"
 "Sergeileduc"
-"2008-06-28"
+"2018-08"
 "RGB*"
 ;SF-IMAGE "Input Image" 0
 ;SF-DRAWABLE "Current Layer" 0

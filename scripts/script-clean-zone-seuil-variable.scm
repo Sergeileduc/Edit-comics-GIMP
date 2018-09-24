@@ -7,7 +7,7 @@
 
 	;Recupere la selection utilisateur
 	(gimp-image-get-selection image)
-	
+
 	;test la sélection utilisateur est vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
 	(begin
@@ -26,7 +26,7 @@
 	(gimp-message "Aucune sélection !\
 Veuillez d'abord sélectionner une zone \(rectangulaire par exemple\) !!!")
 	);end if selection
-	
+
 	;Finish
 	(gimp-displays-flush)
 	(gimp-selection-none image)
@@ -42,7 +42,7 @@ Veuillez d'abord sélectionner une zone \(rectangulaire par exemple\) !!!")
 -Le seuil de tolérance à la couleur est variable"
 	"Sergeileduc"
 	"Sergeileduc"
-	"2018-06-28"
+	"2018-08"
 	"RGB*"
 	SF-IMAGE "Input Image" 0
 	SF-DRAWABLE "Current Layer" 0

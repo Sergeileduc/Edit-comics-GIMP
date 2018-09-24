@@ -41,7 +41,7 @@ register(
 "Sauvegarde vers le dossier clean (en jpeg)",
 "Sergeileduc",
 "Sergeileduc",
-"2018",
+"2018-08",
 "5) Sauve vers le dossier \"-clean\" (en jpeg)",             #Menu path
 "RGB*, GRAY*",
 [

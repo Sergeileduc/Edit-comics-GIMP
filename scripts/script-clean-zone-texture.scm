@@ -52,7 +52,7 @@ souvent c'est du gris foncé \(30 30 30\)\),
 Veuillez d'abord sélectionner une zone \(avec l'outil de sélection RECTANGULAIRE par exemple\)"
 "Sergeileduc"
 "Sergeileduc"
-"2018-06-28"
+"2018-08"
 "RGB*"
 SF-IMAGE "Input Image" 0
 SF-DRAWABLE "Current Layer" 0

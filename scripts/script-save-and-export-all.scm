@@ -16,7 +16,7 @@
 "Sauve toutes les images ouvertes en .xcf dans le dossier _XCF\n et en .jpeg dans le dossier _EDIT"
 "Sergeileduc"
 "Sergeileduc"
-"2008-06-28"
+"2018-08"
 "RGB*"
 )
 

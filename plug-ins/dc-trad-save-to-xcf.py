@@ -45,7 +45,7 @@ register(
 "Sauvegarde vers le dossier XCF (en xcf)",
 "Sergeileduc",
 "Sergeileduc",
-"2018",
+"2018-08",
 "6) Sauve vers le dossier \"-XCF\" (en xcf)",		#Menu path
 "RGB*, GRAY*",
 [
