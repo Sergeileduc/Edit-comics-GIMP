@@ -84,7 +84,7 @@ def import_text_layers(image,
   #special character for page jumps
   special = u"\u2003"
   #special character like WORD page jump, UTF-8 (...), etc... to be replaced
-  substitutions = {u"\u2003": '', u"\u2026": '...', ' \n':''}
+  substitutions = {u"\u2003": '', u"\u2026": '...', ' \n':'\n'}
 
   try:
     source_file = io.open(source_path, "rt", encoding="utf_8")
@@ -145,7 +145,7 @@ def import_text_layers(image,
     else:
       text = rawtext
 
-    if (text != '//' and text != ''):
+    if (text != '//' and text != '' and text != '// '):
         if (len(text) < 20):
           tlayer_width = 150
           tlayer_height = 100
