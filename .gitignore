@@ -54,6 +54,7 @@ plug-ins/save-to.py
 plug-ins/import_text.py
 plug-ins/resynthesizer
 plug-ins/resynthesizer_gui
+plug-ins/test_colorpicker.py
 scripts/.DS_Store
 plug-ins/.DS_Store
 scripts/desktop.ini
