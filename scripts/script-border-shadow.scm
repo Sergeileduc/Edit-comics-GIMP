@@ -56,7 +56,7 @@
 			)
 
 	;Creer le groupe de calques
-	(if (or flag-border shadow-border)
+	(if (or flag-border flag-shadow)
 		(begin
 		(set! group (car (gimp-layer-group-new image)))
 		(gimp-item-set-name group name)
