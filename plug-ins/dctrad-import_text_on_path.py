@@ -207,7 +207,7 @@ register(
     (PF_OPTION,   "hintstyle_index",    "Ajustement",     0, hintstyle_list) ,
     #(PF_COLOR,    "font_color",       "font color",       '#000000'),
     (PF_OPTION,   "justification_index","Justification",  2, justification_list),
-    (PF_SPINNER,    "line_spacing",     "Espacement de ligne",     0.0, (0.0, 200.0, 0.1)),
+    (PF_SPINNER,    "line_spacing",     "Espacement de ligne",     0.0, (-200.0, 200.0, 0.1)),
     (PF_SPINNER,    "letter_spacing",   "Espacement de lettre",   0.0, (0.0, 200.0, 0.1))],
     #(PF_OPTION,   "box_mode_index",   "Boite",         0, boxmode_list),
     [],
