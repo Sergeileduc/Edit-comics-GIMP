@@ -32,6 +32,7 @@ hintstyle_values = [
     TEXT_HINT_STYLE_MEDIUM,
     TEXT_HINT_STYLE_FULL]
 boxmode_list = ["fixed", "dynamic"]
+fontunit_list = ["pixels (px)", "pouces (in)", "milimètres (mm)", "points (pt)"]
 
 #multiple replace function
 def replace(string, substitutions):
@@ -44,6 +45,7 @@ def plugin_import_text_layers_path_dctrad(image,
     source_path,
     page_index,
     font,
+    fontunit_index,
     font_size,
     antialias,
     hintstyle_index,
@@ -60,7 +62,7 @@ def plugin_import_text_layers_path_dctrad(image,
   font_size_int = int(font_size)
   use_markdown = False
   source_escaped = False
-  return import_text_layers(image, active_layer, source_path, page_index, source_escaped, font, font_size_int, antialias, hintstyle_values[hintstyle_index], font_color, justification_values[justification_index], indent, letter_spacing, line_spacing, boxmode_list[box_mode_index], language, use_markdown)
+  return import_text_layers(image, active_layer, source_path, page_index, source_escaped, font, fontunit_index, font_size_int, antialias, hintstyle_values[hintstyle_index], font_color, justification_values[justification_index], indent, letter_spacing, line_spacing, boxmode_list[box_mode_index], language, use_markdown)
 
 def import_text_layers(image,
   active_layer,
@@ -68,6 +70,7 @@ def import_text_layers(image,
   page_index,
   source_escaped,
   font,
+  fontunit_index,
   font_size,
   antialias,
   hintstyle,
@@ -168,7 +171,7 @@ def import_text_layers(image,
         x_index += 6
         y_index += 6
 
-        tlayer = pdb.gimp_text_layer_new(image, text, font, font_size, 0)
+        tlayer = pdb.gimp_text_layer_new(image, text, font, font_size, fontunit_index)
         pdb.gimp_image_add_layer(image, tlayer, layer_position)
 
         pdb.gimp_text_layer_set_antialias(tlayer, antialias)
@@ -202,6 +205,7 @@ register(
     (PF_SPINNER, "page_index", "Numero de page (la première page est tout le temps 1)", 1, (1, 50, 1)),
     #(PF_BOOL,     "source_escaped",   "text is escaped",  False),
     (PF_FONT,     "font",             "Police",             'Sans'),
+    (PF_OPTION,   "fontunit_index",    "Unité pour taille de police",     0, fontunit_list) ,
     (PF_SPINNER,      "font_size",        "Taille de police",        27, (1, 200, 1)),
     (PF_BOOL,     "antialias",        "Lissage (antialiasing)",        True),
     (PF_OPTION,   "hintstyle_index",    "Ajustement",     0, hintstyle_list) ,
