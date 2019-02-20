@@ -13,6 +13,8 @@
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
 
+	;Resolution
+	(gimp-image-set-resolution image 72 72)
 	;SCRIPT
 	(gimp-item-set-name layer "Edit")
 	(define new-layer (car (gimp-layer-copy drawable 1)))
