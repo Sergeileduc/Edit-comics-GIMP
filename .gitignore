@@ -1,6 +1,5 @@
 
-unitrc
-toolrc
+CrashLog/
 backups/
 brushes/
 curves/
@@ -20,6 +19,7 @@ levels/
 modules/
 palettes/
 patterns/
+plug-ins/gmic_gimp_qt/
 templates/
 tmp/
 Themes/
@@ -35,7 +35,8 @@ gimprc
 gtkrc
 menurc
 parasiterc
-plug-ins/gmic_gimp_qt/
+unitrc
+toolrc
 plug-ins/lisez-moi.txt
 plug-ins/plugin-heal-selection.py
 plug-ins/plugin-heal-transparency.py
