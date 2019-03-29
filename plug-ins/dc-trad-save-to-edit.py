@@ -64,7 +64,7 @@ register(
     "7) Sauve vers les dossiers \"-Edit\" et \"-XCF\"",  # Menu path
     "RGB*, GRAY*",
     [
-        (PF_IMAGE, "image",       "Input image", None),
+        (PF_IMAGE, "image", "Input image", None),
         # (PF_DRAWABLE, "drawable", "Input drawable", None),
     ],
     [],

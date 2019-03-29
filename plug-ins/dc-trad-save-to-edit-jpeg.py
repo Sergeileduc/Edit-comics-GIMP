@@ -56,7 +56,7 @@ register(
     "8) Sauve vers le dossier \"-Edit\" en jpeg uniquement",  # Menu path
     "RGB*, GRAY*",
     [
-        (PF_IMAGE, "image",       "Input image", None),
+        (PF_IMAGE, "image", "Input image", None),
         # (PF_DRAWABLE, "drawable", "Input drawable", None),
     ],
     [],

@@ -48,7 +48,7 @@ register(
     "5) Sauve vers le dossier \"-clean\" (en jpeg)",  # Menu path
     "RGB*, GRAY*",
     [
-        (PF_IMAGE, "image",       "Input image", None),
+        (PF_IMAGE, "image", "Input image", None),
         # (PF_DRAWABLE, "drawable", "Input drawable", None),
     ],
     [],

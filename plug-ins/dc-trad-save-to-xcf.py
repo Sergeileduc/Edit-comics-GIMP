@@ -53,7 +53,7 @@ register(
     "6) Sauve vers le dossier \"-XCF\" (en xcf)",  # Menu path
     "RGB*, GRAY*",
     [
-        (PF_IMAGE, "image",       "Input image", None),
+        (PF_IMAGE, "image", "Input image", None),
         # (PF_DRAWABLE, "drawable", "Input drawable", None),
     ],
     [],

@@ -54,7 +54,7 @@ register(
     "9) [PHOTOSHOP] Sauve vers le dossier \"_PSD\" (en .psd)",  # Menu path
     "RGB*, GRAY*",
     [
-        (PF_IMAGE, "image",       "Input image", None),
+        (PF_IMAGE, "image", "Input image", None),
         # (PF_DRAWABLE, "drawable", "Input drawable", None),
     ],
     [],
