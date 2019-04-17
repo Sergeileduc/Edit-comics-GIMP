@@ -106,8 +106,8 @@ def import_text_layers(
         use_markdown):
     # Regex used for split the page
     regex = r"^(?i)page [0-9]+.*(\r\n|\r|\n)"
-    # special character for page jumps
-    # special = u"\u2003"
+    # special character for page jumps : u"\u2003"
+    # special character for supspension marks : u"\u2026"
     # special character like WORD page jump, UTF-8 (...), etc... to be replaced
     substitutions = {u"\u2003": '', u"\u2026": '...', ' \n': '\n'}
 
@@ -118,8 +118,8 @@ def import_text_layers(
     except UnicodeDecodeError:
         pdb.gimp_message("Le script n'a pas pu utiliser l'encodage de texte "
                          "UTF-8, et va utiliser un encodage par défaut.\n"
-                         "Encas de problème, vous devriez envisager "
-                         "d'enregistrer les fichiers textes avec l'encodeage "
+                         "En cas de problème, vous devriez envisager "
+                         "d'enregistrer les fichiers textes avec l'encodage "
                          "UTF-8, à l'avenir")
         source_file = io.open(source_path, "rt")
         raw_source = source_file.read()
