@@ -11,7 +11,7 @@ import re
 import codecs
 import io
 from gimpfu import pdb, register, main
-from gimpfu import PF_FILE, PF_SPINNER, PF_FONT, PF_BOOL, PF_OPTION
+from gimpfu import PF_FILE, PF_SPINNER, PF_FONT, PF_BOOL, PF_OPTION, PF_COLOR
 from gimpfu import TEXT_JUSTIFY_LEFT, TEXT_JUSTIFY_RIGHT
 from gimpfu import TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_FILL
 from gimpfu import TEXT_HINT_STYLE_NONE, TEXT_HINT_STYLE_SLIGHT
@@ -62,7 +62,7 @@ def plugin_import_text_layers_path_dctrad(
         font_size,
         antialias,
         hintstyle_index,
-        # font_color,
+        font_color,
         justification_index,
         line_spacing,
         letter_spacing):
@@ -70,7 +70,7 @@ def plugin_import_text_layers_path_dctrad(
         # use_markdown):
     indent = 0
     box_mode_index = 0  # box fixed mode
-    font_color = '#000000'
+    # font_color = '#000000'
     language = 'fr'
     font_size_int = int(font_size)
     use_markdown = False
@@ -254,7 +254,7 @@ register(
         (PF_BOOL, "antialias", "Lissage (antialiasing)", True),
         (PF_OPTION, "hintstyle_index",
          "Ajustement", 0, hintstyle_list),
-        # (PF_COLOR, "font_color", "font color", '#000000'),
+        (PF_COLOR, "font_color", "Couleur texte", '#000000'),
         (PF_OPTION, "justification_index",
          "Justification", 2, justification_list),
         (PF_SPINNER, "line_spacing",
