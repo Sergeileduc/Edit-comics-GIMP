@@ -179,13 +179,16 @@ def import_text_layers(
             text = rawtext
 
         if (text != '//' and text != '' and text != '// '):
+            # Short text -> small box
             if (len(text) < 20):
                 tlayer_width = 150
                 tlayer_height = 100
+            # Long text -> large box
             else:
                 tlayer_width = 450
                 tlayer_height = 150
 
+            # Test if number of poins is correct
             if (x_index < n_points):
                 # Text position from path
                 x_pos = cpoints[x_index]
