@@ -68,3 +68,4 @@ tags.xml
 templaterc
 themerc
 *.settings
+*/test.*
