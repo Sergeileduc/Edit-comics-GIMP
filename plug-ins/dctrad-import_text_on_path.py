@@ -26,23 +26,26 @@ from gimpfu import TEXT_HINT_STYLE_MEDIUM, TEXT_HINT_STYLE_FULL
 #    dialog.run()
 #    dialog.hide()
 
-justification_list = ["Aligné à gauche", "Aligné à droite",
-                      "Centré", "Justifié"]
-justification_values = [
-                        TEXT_JUSTIFY_LEFT,
-                        TEXT_JUSTIFY_RIGHT,
-                        TEXT_JUSTIFY_CENTER,
-                        TEXT_JUSTIFY_FILL]
-alignment_list = ["top", "bottom", "middle"]
-hintstyle_list = ["Aucun", "Léger", "Moyen", "Full/Justifié"]
-hintstyle_values = [
-                    TEXT_HINT_STYLE_NONE,
-                    TEXT_HINT_STYLE_SLIGHT,
-                    TEXT_HINT_STYLE_MEDIUM,
-                    TEXT_HINT_STYLE_FULL]
+justification = [(TEXT_JUSTIFY_LEFT, "Aligné à gauche"),
+                 (TEXT_JUSTIFY_RIGHT, "Aligné à droite"),
+                 (TEXT_JUSTIFY_CENTER, "Centré"),
+                 (TEXT_JUSTIFY_FILL, "Justifié")
+                 ]
+
+hintstyle = [(TEXT_HINT_STYLE_NONE, "Aucun"),
+             (TEXT_HINT_STYLE_SLIGHT, "Léger"),
+             (TEXT_HINT_STYLE_MEDIUM, "Moyen"),
+             (TEXT_HINT_STYLE_FULL, "Full/Justifié")]
+
 boxmode_list = ["fixed", "dynamic"]
+
 fontunit_list = ["pixels (px)", "pouces (in)",
                  "milimètres (mm)", "points (pt)"]
+
+justification_gimp = [x[0] for x in justification]
+justification_french = [x[1] for x in justification]
+hintstyle_gimp = [x[0] for x in hintstyle]
+hintstyle_french = [x[1] for x in hintstyle]
 
 
 # Multiple replace function
@@ -75,14 +78,15 @@ def plugin_import_text_layers_path_dctrad(
     font_size_int = int(font_size)
     use_markdown = False
     source_escaped = False
+
     return import_text_layers(image, active_layer, source_path, page_index,
                               source_escaped, font, fontunit_index,
                               font_size_int, antialias,
-                              hintstyle_values[hintstyle_index], font_color,
-                              justification_values[justification_index],
+                              hintstyle_gimp[hintstyle_index], font_color,
+                              justification_gimp[justification_index],
                               indent, letter_spacing, line_spacing,
-                              boxmode_list[box_mode_index], language,
-                              use_markdown)
+                              boxmode_list[box_mode_index],
+                              language, use_markdown)
 
 
 def import_text_layers(
@@ -256,10 +260,10 @@ register(
         (PF_SPINNER, "font_size", "Taille de police", 27, (1, 200, 1)),
         (PF_BOOL, "antialias", "Lissage (antialiasing)", True),
         (PF_OPTION, "hintstyle_index",
-         "Ajustement", 0, hintstyle_list),
+         "Ajustement", 0, hintstyle_french),
         (PF_COLOR, "font_color", "Couleur texte", '#000000'),
         (PF_OPTION, "justification_index",
-         "Justification", 2, justification_list),
+         "Justification", 2, justification_french),
         (PF_SPINNER, "line_spacing",
          "Espacement de ligne", 0.0, (-200.0, 200.0, 0.1)),
         (PF_SPINNER, "letter_spacing",
