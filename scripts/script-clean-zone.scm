@@ -6,6 +6,10 @@
 	;modifiez cette valeur (2 par défaut) si vous voulez un script avec un seuil plus tolérant
 	(gimp-context-set-sample-threshold-int 2)
 
+    ;Context
+    (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
+    (gimp-context-set-opacity 100)
+
 	;Recupere la selection utilisateur
 	(gimp-image-get-selection image)
 	;test la sélection utilisateur est vide

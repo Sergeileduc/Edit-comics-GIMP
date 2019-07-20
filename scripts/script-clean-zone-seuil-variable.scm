@@ -5,6 +5,10 @@
 	(gimp-image-undo-group-start image)
 	(gimp-context-set-sample-threshold-int seuil)
 
+    ;Context
+    (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
+    (gimp-context-set-opacity 100)
+
 	;Recupere la selection utilisateur
 	(gimp-image-get-selection image)
 

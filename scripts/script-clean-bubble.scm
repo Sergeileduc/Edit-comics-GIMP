@@ -10,6 +10,11 @@
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
 
+    ;Context
+    (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
+    (gimp-context-set-opacity 100)
+
+
 	; Enlève les trous (le lettrage VO) de la sélection
 	(gimp-selection-flood image)
 

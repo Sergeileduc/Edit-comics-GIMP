@@ -8,6 +8,10 @@
 	;(gimp-context-push)
 	(gimp-image-undo-group-start image)
 
+    ;Context
+    (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
+    (gimp-context-set-opacity 100)
+
 	(gimp-image-select-color image CHANNEL-OP-REPLACE drawable (car (gimp-context-get-background)))
 	(gimp-selection-invert image)
 	(gimp-selection-flood image)

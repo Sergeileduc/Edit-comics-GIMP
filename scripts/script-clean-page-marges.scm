@@ -9,7 +9,11 @@
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
-	(gimp-context-set-sample-threshold-int seuil)
+
+    ;Context
+    (gimp-context-set-sample-threshold-int seuil)
+    (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
+    (gimp-context-set-opacity 100)
 
 	;Sélectionner le centre de la page (sans les marges)
 	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
