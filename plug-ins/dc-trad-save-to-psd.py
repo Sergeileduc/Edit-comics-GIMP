@@ -35,6 +35,7 @@ def pythonSaveToPSD(image):
     if not os.path.exists(path):
         os.makedirs(path)
 
+    # Save in PSD
     pdb.gimp_file_save(image, drawable, out_psd, out_psd)
     pdb.gimp_image_clean_all(image)
 

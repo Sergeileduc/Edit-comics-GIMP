@@ -40,11 +40,12 @@ def pythonSaveToEdit(image):
     if not os.path.exists(path2):
         os.makedirs(path2)
 
-    # pdb.gimp_file_save(image, drawable, out_file, out_file)
+    # Merge visible layers in an image and export in jppeg
     new_image = pdb.gimp_image_duplicate(image)
     layer = pdb.gimp_image_merge_visible_layers(new_image, CLIP_TO_IMAGE)
     pdb.gimp_file_save(new_image, layer, out_file, out_file)
     pdb.gimp_image_delete(new_image)
+    # Save in XCF
     pdb.gimp_file_save(image, drawable, out_xcf, out_xcf)
     pdb.gimp_image_clean_all(image)
 

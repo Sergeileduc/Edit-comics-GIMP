@@ -34,6 +34,7 @@ def pythonSaveToXCF(image):
     if not os.path.exists(path):
         os.makedirs(path)
 
+    # Save in XCF
     pdb.gimp_file_save(image, drawable, out_xcf, out_xcf)
     pdb.gimp_image_clean_all(image)
 

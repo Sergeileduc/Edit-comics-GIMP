@@ -34,6 +34,7 @@ def pythonSaveToEditJpeg(image):
     if not os.path.exists(path):
         os.makedirs(path)
 
+    # Merge visible layers in new image and export in JPEG
     new_image = pdb.gimp_image_duplicate(image)
     layer = pdb.gimp_image_merge_visible_layers(new_image, CLIP_TO_IMAGE)
     pdb.gimp_file_save(new_image, layer, out_file, out_file)
