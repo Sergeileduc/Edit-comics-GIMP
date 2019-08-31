@@ -28,15 +28,13 @@ from gimpfu import TEXT_HINT_STYLE_MEDIUM, TEXT_HINT_STYLE_FULL
 
 justification_list = ["Aligné à gauche", "Aligné à droite",
                       "Centré", "Justifié"]
-justification_values = [
-                        TEXT_JUSTIFY_LEFT,
+justification_values = [TEXT_JUSTIFY_LEFT,
                         TEXT_JUSTIFY_RIGHT,
                         TEXT_JUSTIFY_CENTER,
                         TEXT_JUSTIFY_FILL]
 alignment_list = ["top", "bottom", "middle"]
 hintstyle_list = ["Aucun", "Léger", "Moyen", "Full/Justifié"]
-hintstyle_values = [
-                    TEXT_HINT_STYLE_NONE,
+hintstyle_values = [TEXT_HINT_STYLE_NONE,
                     TEXT_HINT_STYLE_SLIGHT,
                     TEXT_HINT_STYLE_MEDIUM,
                     TEXT_HINT_STYLE_FULL]
@@ -132,14 +130,14 @@ def import_text_layers(
         else:
             source = raw_source
     else:
-        pdb.gimp_message("failure: invalid source file(\""+source_path+"\")")
+        pdb.gimp_message("failure: invalid source file(\"" + source_path + "\")")
         return
 
     # Split pages
     pages_array = filter(lambda x: not re.match(r'^\s*$', x),
                          re.split(regex, source, flags=re.MULTILINE))
     # Clean working page
-    page = replace(pages_array[int(page_index)-1], substitutions)
+    page = replace(pages_array[int(page_index) - 1], substitutions)
     # Split into lines
     text_lines = page.splitlines()
 
@@ -263,7 +261,7 @@ register(
         (PF_SPINNER, "line_spacing",
          "Espacement de ligne", 0.0, (-200.0, 200.0, 0.1)),
         (PF_SPINNER, "letter_spacing",
-         "Espacement de lettre", 0.0, (0.0, 200.0, 0.1))
+         "Espacement de lettre", 0.0, (-200.0, 200.0, 0.1))
     ],
     # (PF_OPTION, "box_mode_index", "Boite", 0, boxmode_list),
     [],
