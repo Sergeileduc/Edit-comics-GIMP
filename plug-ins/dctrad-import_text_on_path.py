@@ -110,7 +110,7 @@ def import_text_layers(
     substitutions = {u"\u2003": '', u"\u2026": '...', ' \n': '\n'}
 
     try:
-        source_file = io.open(source_path, "rt", encoding="utf_8")
+        source_file = io.open(unicode(source_path, "utf-8"), "rt", encoding="utf_8")
         raw_source = source_file.read()
         source_file.close()
     except UnicodeDecodeError:
@@ -119,7 +119,7 @@ def import_text_layers(
                          "En cas de problème, vous devriez envisager "
                          "d'enregistrer les fichiers textes avec l'encodage "
                          "UTF-8, à l'avenir")
-        source_file = io.open(source_path, "rt")
+        source_file = io.open(unicode(source_path, "utf-8"), "rt")
         raw_source = source_file.read()
         source_file.close()
     if (raw_source):
