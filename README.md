@@ -1,4 +1,4 @@
-# DCtrad-GIMP
+# Edit-comics-GIMP
 
 ## Installation
 Installation des scripts GIMP sous Windows : [Tuto Youtube](https://youtu.be/EXGLsQq9Gl4)
