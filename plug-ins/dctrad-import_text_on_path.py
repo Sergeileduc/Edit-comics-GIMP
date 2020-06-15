@@ -87,10 +87,10 @@ def replace(string, substitutions):
 def splitpages(source):
     """Split long text in a list of texts (separator is "Page XX")."""
     # Regex used for split the page
-    regex = r"^(?i)page [0-9]+.*(\r\n|\r|\n)"
+    regex = r"(?i)^page\s[0-9]+.*(\r\n|\r|\n)"
 
     return filter(lambda x: not re.match(r'^\s*$', x),
-                  re.split(regex, source, flags=re.MULTILINE))
+                  re.split(regex, source, flags=re.MULTILINE | re.UNICODE))
 
 
 def get_path_points(image):
