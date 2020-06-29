@@ -9,3 +9,5 @@ Fichiers resynthesizer pour Linux : [Resynthesizer Linux](https://www.gimp-forum
 
 ## Debug
 Pour Windows : pour éviter les bugs (sur le choix de la couleur dans le script "Importer un texte sur un chemin"), il faut utiliser Gimp en version 2.10.12 minimum.
+
+Version de GIMP conseillée : 2.10.20 (dernière en date)
