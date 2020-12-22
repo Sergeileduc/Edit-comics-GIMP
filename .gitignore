@@ -69,3 +69,5 @@ templaterc
 themerc
 *.settings
 */test.*
+extensionrc
+theme.css
