@@ -39,7 +39,7 @@
 	;variable
 	(let*	(
 		(offset 100)
-		(drawable (car (gimp-image-active-drawable image)))
+		(drawable (car (gimp-image-get-active-drawable image)))
 		(layer (car (gimp-image-get-active-layer image)))
 		(layer-1 0)
 		(layer-2 0)
@@ -50,7 +50,7 @@
 		(old-y (car (cdr (gimp-drawable-offsets layer))))
 		(x-coord (- old-x offset))
 		(y-coord (- old-y offset))
-		(name (car (gimp-drawable-get-name drawable)))
+		(name (car (gimp-item-get-name drawable)))
 		(group (car (gimp-layer-group-new image)))
 	)
 
@@ -64,9 +64,9 @@
 	;Creer la première bordure
 	(if (= first-flag TRUE)
 		(begin
-		(set! layer-1 (car (gimp-layer-new image width height RGBA-IMAGE "1ere Bordure" 100 NORMAL-MODE)))
+		(set! layer-1 (car (gimp-layer-new image width height RGBA-IMAGE "1ere Bordure" 100 LAYER-MODE-NORMAL)))
 		(gimp-image-insert-layer image layer-1 group 1)
-		(gimp-layer-translate layer-1 x-coord y-coord)
+		(gimp-item-transform-translate layer-1 x-coord y-coord)
 		(create-selection-flood image layer thickness-1 feather-1)
 		(fill-selection image layer-1 colour-1)
 		)
@@ -75,9 +75,9 @@
 	;Creer la deuxième bordure
 	(if (= second-flag TRUE)
 		(begin
-		(set! layer-2 (car (gimp-layer-new image width height RGBA-IMAGE "2eme Bordure" 100 NORMAL-MODE)))
+		(set! layer-2 (car (gimp-layer-new image width height RGBA-IMAGE "2eme Bordure" 100 LAYER-MODE-NORMAL)))
 		(gimp-image-insert-layer image layer-2 group 2)
-		(gimp-layer-translate layer-2 x-coord y-coord)
+		(gimp-item-transform-translate layer-2 x-coord y-coord)
 		(create-selection-flood image layer (+ thickness-1 thickness-2) feather-2)
 		(fill-selection image layer-2 colour-2)
 		)

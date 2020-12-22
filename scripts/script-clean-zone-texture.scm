@@ -56,7 +56,7 @@ Veuillez d'abord sélectionner une zone \(avec l'outil de sélection RECTANGULAI
 "RGB*"
 SF-IMAGE "Input Image" 0
 SF-DRAWABLE "Current Layer" 0
-SF-ADJUSTMENT "Seuil de tolérance à la couleur des LETTRES (défault = 30)" '(30 0 70 1 10 0 0)
+SF-ADJUSTMENT "Seuil de tolérance à la couleur des LETTRES (défault = 30)" '(30 10 70 1 10 0 0)
 SF-ADJUSTMENT "Agrandir la sélection autour des lettres de n (pixels)\
 1 ou 2 généralement, jouer plutôt sur le seuil si les lettres disparaissent mal" '(1 0 10 1 10 0 0)
 SF-ADJUSTMENT "Context sampling width \(pixels\)" '(10 0 100 1 10 0 0)

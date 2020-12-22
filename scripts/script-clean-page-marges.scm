@@ -1,7 +1,7 @@
 (define (script-fu-clean-page-marges image drawable marge_w marge_h seuil)
 (let*
 	(
-	(drawable (car (gimp-image-active-drawable image)))
+	(drawable (car (gimp-image-get-active-drawable image)))
 	(imageWidth (car (gimp-image-width image))) ;largeur de l'image
 	(imageHeight (car (gimp-image-height image))) ;hauteur de l'image
 	)

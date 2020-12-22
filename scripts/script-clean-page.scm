@@ -1,7 +1,7 @@
 (define (script-fu-clean-page image)
 (let*
 	(
-	(drawable (car (gimp-image-active-drawable image)))
+	(drawable (car (gimp-image-get-active-drawable image)))
 	)
 
 	;Prep

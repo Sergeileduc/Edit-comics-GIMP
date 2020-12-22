@@ -2,7 +2,7 @@
 
 	;variable
 	(let*	(
-		(drawable (car (gimp-image-active-drawable image)))
+		(drawable (car (gimp-image-get-active-drawable image)))
 			)
 
 

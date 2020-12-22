@@ -40,7 +40,7 @@
 	;variable
 	(let*	(
 		(offset 100)
-		(drawable (car (gimp-image-active-drawable image)))
+		(drawable (car (gimp-image-get-active-drawable image)))
 		(layer (car (gimp-image-get-active-layer image)))
 		(border-layer 0)
 		(shadow-layer 0)
@@ -51,7 +51,7 @@
 		(old-y (car (cdr (gimp-drawable-offsets layer))))
 		(x-coord (- old-x offset))
 		(y-coord (- old-y offset))
-		(name (car (gimp-drawable-get-name drawable)))
+		(name (car (gimp-item-get-name drawable)))
 		(group (car (gimp-layer-group-new image)))
 			)
 
@@ -68,9 +68,9 @@
 	;Creer une bordure autour du texte
 	(if (= flag-border TRUE)
 		(begin
-		(set! border-layer (car (gimp-layer-new image width height RGBA-IMAGE "Bordure" 100 NORMAL-MODE)))
+		(set! border-layer (car (gimp-layer-new image width height RGBA-IMAGE "Bordure" 100 LAYER-MODE-NORMAL)))
 		(gimp-image-insert-layer image border-layer group 1)
-		(gimp-layer-translate border-layer x-coord y-coord)
+		(gimp-item-transform-translate border-layer x-coord y-coord)
 		(create-selection image layer thickness-border feather-border)
 		(fill-selection image border-layer colour-border)
 		)
@@ -79,12 +79,12 @@
 	;Creer une ombre du texte
 	(if (= flag-shadow TRUE)
 		(begin
-		(set! shadow-layer (car (gimp-layer-new image width height RGBA-IMAGE "Ombre" 100 NORMAL-MODE)))
+		(set! shadow-layer (car (gimp-layer-new image width height RGBA-IMAGE "Ombre" 100 LAYER-MODE-NORMAL)))
 		(gimp-image-insert-layer image shadow-layer group 2)
-		(gimp-layer-translate shadow-layer x-coord y-coord)
+		(gimp-item-transform-translate shadow-layer x-coord y-coord)
 		(create-selection image layer thickness-shadow feather-shadow)
 		(fill-selection image shadow-layer colour-shadow)
-		(gimp-layer-translate shadow-layer shadow-offset-x shadow-offset-y)
+		(gimp-item-transform-translate shadow-layer shadow-offset-x shadow-offset-y)
 		)
 	)
 
