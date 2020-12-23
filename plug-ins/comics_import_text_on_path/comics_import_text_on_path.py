@@ -11,12 +11,12 @@ into layers, on a path.
 import re
 import codecs
 import io
-from gimpfu import pdb, register, main
-from gimpfu import PF_FILE, PF_SPINNER, PF_FONT, PF_BOOL, PF_OPTION, PF_COLOR
-from gimpfu import TEXT_JUSTIFY_LEFT, TEXT_JUSTIFY_RIGHT
-from gimpfu import TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_FILL
-from gimpfu import TEXT_HINT_STYLE_NONE, TEXT_HINT_STYLE_SLIGHT
-from gimpfu import TEXT_HINT_STYLE_MEDIUM, TEXT_HINT_STYLE_FULL
+# from gimpfu import pdb, register, main
+# from gimpfu import PF_FILE, PF_SPINNER, PF_FONT, PF_BOOL, PF_OPTION, PF_COLOR
+# from gimpfu import TEXT_JUSTIFY_LEFT, TEXT_JUSTIFY_RIGHT
+# from gimpfu import TEXT_JUSTIFY_CENTER, TEXT_JUSTIFY_FILL
+# from gimpfu import TEXT_HINT_STYLE_NONE, TEXT_HINT_STYLE_SLIGHT
+# from gimpfu import TEXT_HINT_STYLE_MEDIUM, TEXT_HINT_STYLE_FULL
 # Dequote next line to import all gimpfu
 # from gimpfu import *
 
@@ -315,40 +315,40 @@ def import_text_layers(
     return  # end of function
 
 
-# Register in Gimp
-register(
-    "plugin_import_text_layers_path_dctrad",
-    "Importer le texte le long du chemin trace",
-    "Import text from file to layers on path",
-    "Sergeileduc",
-    "",
-    "2018-08",
-    "<Image>/DC-trad/Importer un texte sur un chemin",
-    "*",
-    # (type, name, description, default [, extra])
-    [
-        (PF_FILE, "source_path", "Fichier texte", ''),
-        (PF_SPINNER, "page_index",
-         "Numero de page (la première page est tout le temps 1)",
-         1, (1, 50, 1)),
-        # (PF_BOOL,     "source_escaped",   "text is escaped",  False),
-        (PF_FONT, "font", "Police", 'Sans'),
-        (PF_OPTION, "fontunit_index",
-         "Unité pour taille de police", 0, FONTUNIT_LIST),
-        (PF_SPINNER, "font_size", "Taille de police", 27, (1, 200, 1)),
-        (PF_BOOL, "antialias", "Lissage (antialiasing)", True),
-        (PF_OPTION, "hintstyle_index",
-         "Ajustement", 0, HINTSTYLE_FRENCH),
-        (PF_COLOR, "font_color", "Couleur texte", '#000000'),
-        (PF_OPTION, "justification_index",
-         "Justification", 2, JUSTIFICATION_FRENCH),
-        (PF_SPINNER, "line_spacing",
-         "Espacement de ligne", 0.0, (-200.0, 200.0, 0.1)),
-        (PF_SPINNER, "letter_spacing",
-         "Espacement de lettre", 0.0, (-200.0, 200.0, 0.1))
-    ],
-    # (PF_OPTION, "box_mode_index", "Boite", 0, boxmode_list),
-    [],
-    plugin_import_text_layers_path_dctrad)
+# # Register in Gimp
+# register(
+#     "plugin_import_text_layers_path_dctrad",
+#     "Importer le texte le long du chemin trace",
+#     "Import text from file to layers on path",
+#     "Sergeileduc",
+#     "",
+#     "2018-08",
+#     "<Image>/DC-trad/Importer un texte sur un chemin",
+#     "*",
+#     # (type, name, description, default [, extra])
+#     [
+#         (PF_FILE, "source_path", "Fichier texte", ''),
+#         (PF_SPINNER, "page_index",
+#          "Numero de page (la première page est tout le temps 1)",
+#          1, (1, 50, 1)),
+#         # (PF_BOOL,     "source_escaped",   "text is escaped",  False),
+#         (PF_FONT, "font", "Police", 'Sans'),
+#         (PF_OPTION, "fontunit_index",
+#          "Unité pour taille de police", 0, FONTUNIT_LIST),
+#         (PF_SPINNER, "font_size", "Taille de police", 27, (1, 200, 1)),
+#         (PF_BOOL, "antialias", "Lissage (antialiasing)", True),
+#         (PF_OPTION, "hintstyle_index",
+#          "Ajustement", 0, HINTSTYLE_FRENCH),
+#         (PF_COLOR, "font_color", "Couleur texte", '#000000'),
+#         (PF_OPTION, "justification_index",
+#          "Justification", 2, JUSTIFICATION_FRENCH),
+#         (PF_SPINNER, "line_spacing",
+#          "Espacement de ligne", 0.0, (-200.0, 200.0, 0.1)),
+#         (PF_SPINNER, "letter_spacing",
+#          "Espacement de lettre", 0.0, (-200.0, 200.0, 0.1))
+#     ],
+#     # (PF_OPTION, "box_mode_index", "Boite", 0, boxmode_list),
+#     [],
+#     plugin_import_text_layers_path_dctrad)
 
-main()
+# main()
