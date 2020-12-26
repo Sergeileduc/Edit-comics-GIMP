@@ -20,7 +20,7 @@
 		;test si la couleur AP est correcte
 		(if (= (car (gimp-selection-is-empty image)) FALSE)
 			(begin
-			(let* ((drawable (car (gimp-image-active-drawable image))))
+			(let* ((drawable (car (gimp-image-get-active-drawable image))))
 			;ACTIONS DU SCRIPT
 			(gimp-selection-flood image)
 			(gimp-drawable-edit-fill drawable FILL-BACKGROUND));end let
