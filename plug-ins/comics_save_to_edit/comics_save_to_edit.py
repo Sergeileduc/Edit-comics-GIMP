@@ -16,9 +16,9 @@ import sys
 
 import gi
 gi.require_version('Gimp', '3.0')
-from gi.repository import Gimp
-from gi.repository import Gio
-from gi.repository import GLib
+from gi.repository import Gimp  # pylint: disable=no-name-in-module
+from gi.repository import Gio  # pylint: disable=no-name-in-module
+from gi.repository import GLib  # pylint: disable=no-name-in-module
 
 
 import gettext
