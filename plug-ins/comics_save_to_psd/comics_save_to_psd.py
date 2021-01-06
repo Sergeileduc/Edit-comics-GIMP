@@ -21,7 +21,7 @@ from gi.repository import GLib
 
 import gettext
 _ = gettext.gettext
-def N_(message): return message
+def N_(message): return message  # noqa: E704
 
 
 def clean_dirname(dirname):
@@ -37,9 +37,9 @@ def save_to_psd(procedure, run_mode, image, drawable, args, data):
     current_file = image.get_file()  # only if saved in xc, None if imported
     if not current_file:
         current_file = image.get_imported_file()  # if imported in jpeg, etc...
-    
+
     # file_ = image.get_imported_file()
-    #filename = file_.get_basename()
+    # filename = file_.get_basename()
     path = Path(current_file.get_path()).resolve()
     filename = path.stem
     dirname = clean_dirname(path.parent.name)
@@ -62,16 +62,15 @@ def save_to_psd(procedure, run_mode, image, drawable, args, data):
     return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
 
 
-
 class SaveToPSD(Gimp.PlugIn):
-    ## Parameters ##
+    # Parameters #
 
-    ## GimpPlugIn virtual methods ##
+    # GimpPlugIn virtual methods #
     def do_query_procedures(self):
         self.set_translation_domain("gimp30-python",
                                     Gio.file_new_for_path(Gimp.locale_directory()))
 
-        return [ 'python-fu-save-to-psd' ]  # Return procedure name, elsewhere this is "name"
+        return ['python-fu-save-to-psd']  # Return procedure name, elsewhere this is "name"
 
     def do_create_procedure(self, name):
         procedure = None
@@ -79,15 +78,16 @@ class SaveToPSD(Gimp.PlugIn):
             procedure = Gimp.ImageProcedure.new(self, name,
                                                 Gimp.PDBProcType.PLUGIN,
                                                 save_to_psd, None)
-            procedure.set_image_types("RGB*, GRAY*");
-            procedure.set_documentation (N_("Sauvegarde vers le dossier PSD (en .psd)"),
+            procedure.set_image_types("RGB*, GRAY*")
+            procedure.set_documentation(N_("Sauvegarde vers le dossier PSD (en .psd)"),
                                         globals()["__doc__"],
                                         name)
             procedure.set_menu_label(N_("_9) [PHOTOSHOP] Sauve vers le dossier \"_PSD\" (en .psd)"))
             procedure.set_attribution("Sergeileduc",
                                       "Sergeileduc",
                                       "2020")
-            procedure.add_menu_path ("<Image>/DC-trad/Sauvegarder/")
+            procedure.add_menu_path("<Image>/DC-trad/Sauvegarder/")
         return procedure
+
 
 Gimp.main(SaveToPSD.__gtype__, sys.argv)

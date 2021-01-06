@@ -8,9 +8,9 @@ into layers, on a path.
 
 
 # import sys
-import re
-import codecs
-import io
+# import re
+# import codecs
+# import io
 # from gimpfu import pdb, register, main
 # from gimpfu import PF_FILE, PF_SPINNER, PF_FONT, PF_BOOL, PF_OPTION, PF_COLOR
 # from gimpfu import TEXT_JUSTIFY_LEFT, TEXT_JUSTIFY_RIGHT

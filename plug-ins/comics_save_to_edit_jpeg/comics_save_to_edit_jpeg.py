@@ -21,7 +21,7 @@ from gi.repository import GLib
 
 import gettext
 _ = gettext.gettext
-def N_(message): return message
+def N_(message): return message  # noqa: E704
 
 
 def clean_dirname(dirname):
@@ -31,15 +31,14 @@ def clean_dirname(dirname):
     return dirname
 
 
-
 def save_to_edit_jpeg(procedure, run_mode, image, drawable, args, data):
 
     current_file = image.get_file()  # only if saved in xc, None if imported
     if not current_file:
         current_file = image.get_imported_file()  # if imported in jpeg, etc...
-    
+
     # file_ = image.get_imported_file()
-    #filename = file_.get_basename()
+    # filename = file_.get_basename()
     path = Path(current_file.get_path()).resolve()
     print(path)
 
@@ -55,11 +54,11 @@ def save_to_edit_jpeg(procedure, run_mode, image, drawable, args, data):
         new_dir.mkdir()
 
     new_file = new_dir / (filename + ".jpg")
-    
+
     # Merge visible layers in new image and export in CLEAN folder
     new_image = image.duplicate()
     layer = new_image.merge_visible_layers(Gimp.MergeType.CLIP_TO_IMAGE)
-    
+
     # Save File
     Gimp.file_save(1,
                    new_image,
@@ -74,16 +73,15 @@ def save_to_edit_jpeg(procedure, run_mode, image, drawable, args, data):
     return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
 
 
-
 class SaveToEditJpeg(Gimp.PlugIn):
-    ## Parameters ##
+    # Parameters #
 
-    ## GimpPlugIn virtual methods ##
+    # GimpPlugIn virtual methods #
     def do_query_procedures(self):
         self.set_translation_domain("gimp30-python",
                                     Gio.file_new_for_path(Gimp.locale_directory()))
 
-        return [ 'python-fu-save-to-edit-jpeg' ]  # Return procedure name, elsewhere this is "name"
+        return ['python-fu-save-to-edit-jpeg']  # Return procedure name, elsewhere this is "name"
 
     def do_create_procedure(self, name):
         procedure = None
@@ -91,15 +89,16 @@ class SaveToEditJpeg(Gimp.PlugIn):
             procedure = Gimp.ImageProcedure.new(self, name,
                                                 Gimp.PDBProcType.PLUGIN,
                                                 save_to_edit_jpeg, None)
-            procedure.set_image_types("RGB*, GRAY*");
-            procedure.set_documentation (N_("Sauvegarde vers les dossiers Edit en jpeg uniquement"),
+            procedure.set_image_types("RGB*, GRAY*")
+            procedure.set_documentation(N_("Sauvegarde vers les dossiers Edit en jpeg uniquement"),
                                         globals()["__doc__"],
                                         name)
             procedure.set_menu_label(N_("_8) Sauve vers le dossier \"-Edit\" en jpeg uniquement"))
             procedure.set_attribution("Sergeileduc",
                                       "Sergeileduc",
                                       "2020")
-            procedure.add_menu_path ("<Image>/DC-trad/Sauvegarder/")
+            procedure.add_menu_path("<Image>/DC-trad/Sauvegarder/")
         return procedure
+
 
 Gimp.main(SaveToEditJpeg.__gtype__, sys.argv)
