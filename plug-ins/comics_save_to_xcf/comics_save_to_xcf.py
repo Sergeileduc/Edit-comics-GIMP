@@ -8,22 +8,20 @@ Exemple :
     sera sauvé dans:
     .../Mon dossier_XCF/Mon image.xcf
 """
-
+import gettext
 from pathlib import Path
 import sys
 
-import gi
-gi.require_version('Gimp', '3.0')
+# import gi
+# gi.require_version('Gimp', '3.0')
 from gi.repository import Gimp
 from gi.repository import Gio
 from gi.repository import GLib
 
-
-import gettext
 # _ = gettext.gettext
 localdir = Path(__file__).resolve().parents[2] / 'locales'
 gettext.install('comicssavexcf', localedir=localdir)
-def N_(message): return message
+def N_(message): return message  # noqa: E704
 
 
 def clean_dirname(dirname):
@@ -38,9 +36,9 @@ def save_to_xcf(procedure, run_mode, image, drawable, args, data):
     current_file = image.get_file()  # only if saved in xc, None if imported
     if not current_file:
         current_file = image.get_imported_file()  # if imported in jpeg, etc...
-    
+
     # file_ = image.get_imported_file()
-    #filename = file_.get_basename()
+    # filename = file_.get_basename()
     path = Path(current_file.get_path()).resolve()
     filename = path.stem
     dirname = clean_dirname(path.parent.name)
@@ -63,16 +61,15 @@ def save_to_xcf(procedure, run_mode, image, drawable, args, data):
     return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
 
 
-
 class SaveToXCF(Gimp.PlugIn):
-    ## Parameters ##
+    # Parameters #
 
-    ## GimpPlugIn virtual methods ##
+    # GimpPlugIn virtual methods #
     def do_query_procedures(self):
         self.set_translation_domain("gimp30-python",
                                     Gio.file_new_for_path(Gimp.locale_directory()))
 
-        return [ 'python-fu-save-to-xcf' ]  # Return procedure name, elsewhere this is "name"
+        return ['python-fu-save-to-xcf']  # Return procedure name, elsewhere this is "name"
 
     def do_create_procedure(self, name):
         procedure = None
@@ -80,8 +77,8 @@ class SaveToXCF(Gimp.PlugIn):
             procedure = Gimp.ImageProcedure.new(self, name,
                                                 Gimp.PDBProcType.PLUGIN,
                                                 save_to_xcf, None)
-            procedure.set_image_types("RGB*, GRAY*");
-            procedure.set_documentation (_("Save to _XCF folder (in .xcf)"),
+            procedure.set_image_types("RGB*, GRAY*")
+            procedure.set_documentation(_("Save to _XCF folder (in .xcf)"),
                                         globals()["__doc__"],
                                         name)
             procedure.set_menu_label(_("6) Save to \"-XCF\" (in .xcf)"))
@@ -90,5 +87,6 @@ class SaveToXCF(Gimp.PlugIn):
                                       "2020")
             procedure.add_menu_path(_("<Image>/DC-trad/Save/"))
         return procedure
+
 
 Gimp.main(SaveToXCF.__gtype__, sys.argv)
