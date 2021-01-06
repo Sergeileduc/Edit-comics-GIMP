@@ -20,7 +20,9 @@ from gi.repository import GLib
 
 
 import gettext
-_ = gettext.gettext
+# _ = gettext.gettext
+localdir = Path(__file__).resolve().parents[2] / 'locales'
+gettext.install('comicssavexcf', localedir=localdir)
 def N_(message): return message
 
 
@@ -79,14 +81,14 @@ class SaveToXCF(Gimp.PlugIn):
                                                 Gimp.PDBProcType.PLUGIN,
                                                 save_to_xcf, None)
             procedure.set_image_types("RGB*, GRAY*");
-            procedure.set_documentation (N_("Sauvegarde vers le dossier XCF (en xcf)"),
+            procedure.set_documentation (_("Save to _XCF folder (in .xcf)"),
                                         globals()["__doc__"],
                                         name)
-            procedure.set_menu_label(N_("_6) Sauve vers le dossier \"-XCF\" (en xcf)"))
+            procedure.set_menu_label(_("6) Save to \"-XCF\" (in .xcf)"))
             procedure.set_attribution("Sergeileduc",
-                                    "Sergeileduc",
-                                    "2020")
-            procedure.add_menu_path ("<Image>/DC-trad/Sauvegarder/")
+                                      "Sergeileduc",
+                                      "2020")
+            procedure.add_menu_path(_("<Image>/DC-trad/Save/"))
         return procedure
 
 Gimp.main(SaveToXCF.__gtype__, sys.argv)
