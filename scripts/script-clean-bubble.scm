@@ -1,11 +1,5 @@
 (define (script-fu-clean-bubble image drawable)
 
-	;variable
-	(let*	(
-		(drawable (car (gimp-image-get-active-drawable image)))
-			)
-
-
 	;Prep
 	(gimp-context-push)
 	(gimp-image-undo-group-start image)
@@ -32,7 +26,6 @@ Sélectionnez des bulles avec la baguette magique")
 	(gimp-displays-flush)
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
-	);end let
 )
 
 (script-fu-register "script-fu-clean-bubble"
@@ -48,5 +41,5 @@ SF-IMAGE "Input Image" 0
 SF-DRAWABLE "Current Layer" 0
 )
 
-( script-fu-menu-register
+(script-fu-menu-register
 	"script-fu-clean-bubble" "<Image>/DC-trad/")

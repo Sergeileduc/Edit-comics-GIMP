@@ -6,10 +6,6 @@
 	(gimp-context-set-sample-threshold-int 15)
 	(gimp-image-get-selection image)
 
-	(let* (
-		(drawable (car (gimp-image-get-active-drawable image)))
-		)
-
 	;Test selection vide
 	(if (= (car (gimp-selection-is-empty image)) FALSE)
 		(begin
@@ -21,7 +17,7 @@
 			(begin
 			;agrandis la sélection pour éviter les liserés
 			(gimp-selection-grow image 2)
-			(python-fu-heal-selection 1 image drawable 10 0 0)
+			(plug-in-heal-selection 1 image drawable 10 0 0)
 			(gimp-selection-none image)
 			(gimp-displays-flush)
 			);message d'erreur sur la couleur de PP
@@ -34,7 +30,6 @@ Veuillez sélectionner la(les) bulle(s) à corriger (baguette magique seuil ~ 10
 	;Finish
 	(gimp-image-undo-group-end image)
 	(gimp-context-pop)
-	);end let
 )
 
 (script-fu-register "script-fu-clean-degrade"
@@ -53,5 +48,5 @@ SF-IMAGE "Input Image" 0
 SF-DRAWABLE "Current Layer" 0
 )
 
-( script-fu-menu-register
+(script-fu-menu-register
 	"script-fu-clean-degrade" "<Image>/DC-trad/")
