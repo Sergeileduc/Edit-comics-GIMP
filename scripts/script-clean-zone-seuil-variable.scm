@@ -52,5 +52,5 @@ Veuillez d'abord sélectionner une zone \(rectangulaire par exemple\) !!!")
 	SF-ADJUSTMENT "seuil de tolérance à la couleur \(pour le blanc cassé par exemple\)" '(5 0 30 1 10 0 0)
 )
 
-( script-fu-menu-register
+(script-fu-menu-register
 	"script-fu-clean-zone-seuil-variable" "<Image>/DC-trad/")

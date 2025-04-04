@@ -1,5 +1,4 @@
-(define (script-fu-clean-page-auto-0 image)
-
+(define (script-fu-clean-page-auto-0 image drawable)
 	;Prep
 	(gimp-context-push)
 
@@ -7,7 +6,7 @@
 	(gimp-context-set-sample-threshold-int 0)
 
 	;on lance le script clean page
-	(script-fu-clean-page image)
+	(script-fu-clean-page image drawable)
 
 	;Finish
 	(gimp-context-pop)
@@ -27,7 +26,8 @@ Utilisez les scripts avec d'autres seuils en cas de problème"
 "2018-08"
 "RGB*"
 SF-IMAGE "Input Image" 0
+SF-DRAWABLE "Current Layer" 0
 )
 ;Gimp menu register
-( script-fu-menu-register
+(script-fu-menu-register
 	"script-fu-clean-page-auto-0" "<Image>/DC-trad/")

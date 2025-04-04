@@ -1,8 +1,4 @@
-(define (script-fu-clean-page image)
-(let*
-	(
-	(drawable (car (gimp-image-get-active-drawable image)))
-	)
+(define (script-fu-clean-page image drawable)
 
 	;Prep
 	;(gimp-context-push)
@@ -33,7 +29,7 @@ Vérifiez la couleur d'arrière-plan ou utilisez des scripts avec un seuil plus 
 	;Finish
 	(gimp-image-undo-group-end image)
 	;(gimp-context-pop)
-);end let
+
 )
 
 (script-fu-register "script-fu-clean-page"
@@ -44,4 +40,5 @@ Vérifiez la couleur d'arrière-plan ou utilisez des scripts avec un seuil plus 
 "2018-08"
 "RGB*"
 SF-IMAGE "Input Image" 0
+SF-DRAWABLE "Current Layer" 0
 )
