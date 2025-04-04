@@ -22,6 +22,7 @@
 (define (script-fu-add-text-outline
 									image
 									drawable
+									layer
 									flag-border
 									colour-border
 									thickness-border
@@ -40,25 +41,23 @@
 	;variable
 	(let*	(
 		(offset 100)
-		(drawable (car (gimp-image-get-active-drawable image)))
-		(layer (car (gimp-image-get-active-layer image)))
 		(border-layer 0)
 		(shadow-layer 0)
 		(pos (car (gimp-image-get-item-position image layer)))
-		(width (+ (car (gimp-drawable-width drawable)) (* 2 offset)))
-        (height (+ (car (gimp-drawable-height drawable))(* 2 offset)))
-		(old-x (car (gimp-drawable-offsets layer)))
-		(old-y (car (cdr (gimp-drawable-offsets layer))))
+		(width (+ (car (gimp-drawable-get-width drawable)) (* 2 offset)))
+        (height (+ (car (gimp-drawable-get-height drawable))(* 2 offset)))
+		(old-x (car (gimp-drawable-get-offsets layer)))
+		(old-y (car (cdr (gimp-drawable-get-offsets layer))))
 		(x-coord (- old-x offset))
 		(y-coord (- old-y offset))
 		(name (car (gimp-item-get-name drawable)))
-		(group (car (gimp-layer-group-new image)))
+		(group (car (gimp-group-layer-new image "groupe pour texte")))
 			)
 
 	;Creer le groupe de calques
 	(if (or flag-border flag-shadow)
 		(begin
-		(set! group (car (gimp-layer-group-new image)))
+		; (set! group (car (gimp-group-layer-new image)))
 		(gimp-item-set-name group name)
 		(gimp-image-insert-layer image group 0 (+ pos 1))
 		(gimp-image-reorder-item image layer group 0)
@@ -68,7 +67,7 @@
 	;Creer une bordure autour du texte
 	(if (= flag-border TRUE)
 		(begin
-		(set! border-layer (car (gimp-layer-new image width height RGBA-IMAGE "Bordure" 100 LAYER-MODE-NORMAL)))
+		(set! border-layer (car (gimp-layer-new image "Bordure" width height RGBA-IMAGE 100 LAYER-MODE-NORMAL)))
 		(gimp-image-insert-layer image border-layer group 1)
 		(gimp-item-transform-translate border-layer x-coord y-coord)
 		(create-selection image layer thickness-border feather-border)
@@ -79,7 +78,7 @@
 	;Creer une ombre du texte
 	(if (= flag-shadow TRUE)
 		(begin
-		(set! shadow-layer (car (gimp-layer-new image width height RGBA-IMAGE "Ombre" 100 LAYER-MODE-NORMAL)))
+		(set! shadow-layer (car (gimp-layer-new image "Ombre" width height RGBA-IMAGE 100 LAYER-MODE-NORMAL)))
 		(gimp-image-insert-layer image shadow-layer group 2)
 		(gimp-item-transform-translate shadow-layer x-coord y-coord)
 		(create-selection image layer thickness-shadow feather-shadow)
@@ -108,10 +107,11 @@
 	"Dessine une bordure et/ou une ombre pour le calque ou le texte actif"
 	"Sergeileduc"
 	"Sergeileduc"
-	"2018-08"
+	"2025"
 	"*"
 	SF-IMAGE "Input Image" 0
-	SF-DRAWABLE "Current Layer" 0
+	SF-DRAWABLE "BG drawable" 0
+	SF-LAYER "Text Layer" 0
 	SF-TOGGLE "Appliquer une bordure ?" TRUE
 	SF-COLOR "Couleur" '(0 0 0)
 	SF-ADJUSTMENT "Epaisseur" '(2 0 20 1 10 0 0)
@@ -124,5 +124,5 @@
 	SF-ADJUSTMENT "Décalage en y (positif vers le bas, négatif vers le haut" '(5 -50 50 1 10 0 0)
 	)
 
-( script-fu-menu-register
+(script-fu-menu-register
 	"script-fu-add-text-outline" "<Image>/DC-trad/")
