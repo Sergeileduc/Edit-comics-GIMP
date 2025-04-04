@@ -71,3 +71,6 @@ themerc
 */test.*
 /extensionrc
 /theme.css
+/plug-in-settings
+/modifiersrc
+/shortcutsrc
