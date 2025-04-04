@@ -23,6 +23,7 @@
 (define (script-fu-double-bordure
 	image
 	drawable
+	layer
 	first-flag
 	colour-1
 	thickness-1
@@ -39,23 +40,20 @@
 	;variable
 	(let*	(
 		(offset 100)
-		(drawable (car (gimp-image-get-active-drawable image)))
-		(layer (car (gimp-image-get-active-layer image)))
 		(layer-1 0)
 		(layer-2 0)
 		(pos (car (gimp-image-get-item-position image layer)))
-		(width (+ (car (gimp-drawable-width drawable)) (* 2 offset)))
-        (height (+ (car (gimp-drawable-height drawable))(* 2 offset)))
-		(old-x (car (gimp-drawable-offsets layer)))
-		(old-y (car (cdr (gimp-drawable-offsets layer))))
+		(width (+ (car (gimp-drawable-get-width drawable)) (* 2 offset)))
+        (height (+ (car (gimp-drawable-get-height drawable)) (* 2 offset)))
+		(old-x (car (gimp-drawable-get-offsets layer)))
+		(old-y (car (cdr (gimp-drawable-get-offsets layer))))
 		(x-coord (- old-x offset))
 		(y-coord (- old-y offset))
 		(name (car (gimp-item-get-name drawable)))
-		(group (car (gimp-layer-group-new image)))
+		(group (car (gimp-group-layer-new image "groupe pour texte")))
 	)
 
 	;Creer le groupe de calques
-	(set! group (car (gimp-layer-group-new image)))
 	(gimp-item-set-name group name)
 	(gimp-image-insert-layer image group 0 (+ pos 1))
 	(gimp-image-reorder-item image layer group 0)
@@ -64,7 +62,7 @@
 	;Creer la première bordure
 	(if (= first-flag TRUE)
 		(begin
-		(set! layer-1 (car (gimp-layer-new image width height RGBA-IMAGE "1ere Bordure" 100 LAYER-MODE-NORMAL)))
+		(set! layer-1 (car (gimp-layer-new image "1ere Bordure" width height RGBA-IMAGE 100 LAYER-MODE-NORMAL)))
 		(gimp-image-insert-layer image layer-1 group 1)
 		(gimp-item-transform-translate layer-1 x-coord y-coord)
 		(create-selection-flood image layer thickness-1 feather-1)
@@ -75,18 +73,12 @@
 	;Creer la deuxième bordure
 	(if (= second-flag TRUE)
 		(begin
-		(set! layer-2 (car (gimp-layer-new image width height RGBA-IMAGE "2eme Bordure" 100 LAYER-MODE-NORMAL)))
+		(set! layer-2 (car (gimp-layer-new image "2eme Bordure" width height RGBA-IMAGE 100 LAYER-MODE-NORMAL)))
 		(gimp-image-insert-layer image layer-2 group 2)
 		(gimp-item-transform-translate layer-2 x-coord y-coord)
 		(create-selection-flood image layer (+ thickness-1 thickness-2) feather-2)
 		(fill-selection image layer-2 colour-2)
 		)
-	)
-
-
-	;Groupe actif
-	(if (or first-flag shadow-border)
-		(gimp-image-set-active-layer image group)
 	)
 
 	;Finish
@@ -107,6 +99,7 @@
 	"*"
 	SF-IMAGE "Input Image" 0
 	SF-DRAWABLE "Current Layer" 0
+	SF-LAYER "Text Layer" 0
 	SF-TOGGLE "Première bordure" TRUE
 	SF-COLOR "Couleur" '(255 255 255)
 	SF-ADJUSTMENT "Epaisseur" '(10 0 50 1 10 0 0)
