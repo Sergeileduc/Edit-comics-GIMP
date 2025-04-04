@@ -1,9 +1,8 @@
 (define (script-fu-clean-page-marges image drawable marge_w marge_h seuil)
 (let*
 	(
-	(drawable (car (gimp-image-get-active-drawable image)))
-	(imageWidth (car (gimp-image-width image))) ;largeur de l'image
-	(imageHeight (car (gimp-image-height image))) ;hauteur de l'image
+	(width (car (gimp-drawable-get-width drawable))) ;largeur de l'image
+	(height (car (gimp-drawable-get-height drawable))) ;hauteur de l'image
 	)
 
 	;Prep
@@ -16,8 +15,7 @@
     (gimp-context-set-opacity 100)
 
 	;Sélectionner le centre de la page (sans les marges)
-	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
-
+	(gimp-image-select-rectangle image 2 marge_w marge_h (- width (* 2 marge_w)) (- height (* 2 marge_h)))
 	;Sélection par couleur, dans la zone sans les marges (par intersection)
 	(gimp-image-select-color image 3 drawable (car (gimp-context-get-background)))
 
@@ -36,7 +34,7 @@ Vérifiez la couleur d'arrière-plan, ou augmentez le seuil")
 	;(gimp-selection-none image)
 
 	;test
-	(gimp-image-select-rectangle image 2 marge_w marge_h (- imageWidth (* 2 marge_w)) (- imageHeight (* 2 marge_h)))
+	(gimp-image-select-rectangle image 2 marge_w marge_h (- width (* 2 marge_w)) (- height (* 2 marge_h)))
 	(gimp-displays-flush)
 
 	;Finish
