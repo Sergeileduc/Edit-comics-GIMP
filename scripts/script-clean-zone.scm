@@ -20,10 +20,9 @@
 		;test si la couleur AP est correcte
 		(if (= (car (gimp-selection-is-empty image)) FALSE)
 			(begin
-			(let* ((drawable (car (gimp-image-active-drawable image))))
 			;ACTIONS DU SCRIPT
 			(gimp-selection-flood image)
-			(gimp-drawable-edit-fill drawable FILL-BACKGROUND));end let
+			(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
 			);sinon, message sur la couleur de AP
 			(gimp-message "Vérifiez votre couleur d'arrière-plan, ou augmentez le seuil !!!"));end if couleur
 	);si non, message "pas de selection"
@@ -49,7 +48,7 @@ Veuillez d'abord sélectionner une zone \(rectangulaire par exemple\) !!!")
 -Le seuil de tolérance à la couleur est de 2. Pour un seuil variable, utilisez le script 3b) Clean zone - seuil variable"
 	"Sergeileduc"
 	"Sergeileduc"
-	"2018-08"
+	"2025-09"
 	"RGB*"
 	SF-IMAGE "Input Image" 0
 	SF-DRAWABLE "Current Layer" 0

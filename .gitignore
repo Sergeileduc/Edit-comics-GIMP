@@ -61,7 +61,10 @@ plug-ins/.DS_Store
 scripts/desktop.ini
 .DS_Store
 .*
+modifiersrc
+shortcutsrc
 pluginrc
+plug-in-settings/
 profilerc
 sessionrc
 tags.xml
