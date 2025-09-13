@@ -11,17 +11,17 @@ Exemple :
     .../Mon dossier_EDIT/Mon image.jpg
 """
 
+import gettext
+from gi.repository import GLib  # pylint: disable=no-name-in-module
+from gi.repository import Gio  # pylint: disable=no-name-in-module
+from gi.repository import Gimp  # pylint: disable=no-name-in-module
 from pathlib import Path
 import sys
 
 import gi
 gi.require_version('Gimp', '3.0')
-from gi.repository import Gimp  # pylint: disable=no-name-in-module
-from gi.repository import Gio  # pylint: disable=no-name-in-module
-from gi.repository import GLib  # pylint: disable=no-name-in-module
 
 
-import gettext
 _ = gettext.gettext
 def N_(message): return message  # noqa: E704
 
@@ -35,9 +35,8 @@ def clean_dirname(dirname):
 
 def save_to_edit(procedure, run_mode, image, drawable, args, data):
 
-    current_file = image.get_file()  # only if saved in xc, None if imported
-    if not current_file:
-        current_file = image.get_imported_file()  # if imported in jpeg, etc...
+    # fallback to imported file if not saved in xcf
+    current_file = image.get_file() or image.get_imported_file()
 
     # file_ = image.get_imported_file()
     # filename = file_.get_basename()
@@ -80,7 +79,8 @@ class SaveToEdit(Gimp.PlugIn):
 
     # GimpPlugIn virtual methods #
     def do_query_procedures(self):
-        return ['python-fu-save-to-edit']  # Return procedure name, elsewhere this is "name"
+        # Return procedure name, elsewhere this is "name"
+        return ['python-fu-save-to-edit']
 
     def do_set_i18n(self, name):
         return False
@@ -95,7 +95,8 @@ class SaveToEdit(Gimp.PlugIn):
             procedure.set_documentation(N_("Sauvegarde vers les dossiers Edit et XCF"),
                                         globals()["__doc__"],
                                         name)
-            procedure.set_menu_label(N_("_7) Sauve vers les dossiers \"-Edit\" et \"-XCF\""))
+            procedure.set_menu_label(
+                N_("_7) Sauve vers les dossiers \"-Edit\" et \"-XCF\""))
             procedure.set_attribution("Sergeileduc",
                                       "Sergeileduc",
                                       "2025")

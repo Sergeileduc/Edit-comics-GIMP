@@ -10,17 +10,17 @@ Exemple :
     .../Mon dossier_CLEAN/Mon image.jpg
 """
 
+import gettext
+from gi.repository import GLib  # pylint: disable=no-name-in-module
+from gi.repository import Gio  # pylint: disable=no-name-in-module
+from gi.repository import Gimp  # pylint: disable=no-name-in-module
 from pathlib import Path
 import sys
 
 import gi
 gi.require_version('Gimp', '3.0')
-from gi.repository import Gimp  # pylint: disable=no-name-in-module
-from gi.repository import Gio  # pylint: disable=no-name-in-module
-from gi.repository import GLib  # pylint: disable=no-name-in-module
 
 
-import gettext
 _ = gettext.gettext
 def N_(message): return message  # noqa: E704
 
@@ -34,9 +34,8 @@ def clean_dirname(dirname):
 
 def save_to_clean(procedure, run_mode, image, drawable, args, data):
 
-    current_file = image.get_file()  # only if saved in xc, None if imported
-    if not current_file:
-        current_file = image.get_imported_file()  # if imported in jpeg, etc...
+    # get_file() if saved in xcf, else imported_file if imported
+    current_file = image.get_file() or image.get_imported_file()
 
     # file_ = image.get_imported_file()
     # filename = file_.get_basename()
@@ -68,7 +67,8 @@ def save_to_clean(procedure, run_mode, image, drawable, args, data):
 class SaveToClean(Gimp.PlugIn):
 
     def do_query_procedures(self):
-        return ['python-fu-save-to-clean']  # Return procedure name, elsewhere this "name"
+        # Return procedure name, elsewhere this "name"
+        return ['python-fu-save-to-clean']
 
     def do_set_i18n(self, name):
         return False
@@ -83,7 +83,8 @@ class SaveToClean(Gimp.PlugIn):
             procedure.set_documentation(N_("Sauvegarde vers le dossier clean (en jpeg)"),
                                         globals()["__doc__"],
                                         name)
-            procedure.set_menu_label(N_("_5) Sauve vers le dossier \"-clean\" (en jpeg)"))
+            procedure.set_menu_label(
+                N_("_5) Sauve vers le dossier \"-clean\" (en jpeg)"))
             procedure.set_attribution("Sergeileduc",
                                       "Sergeileduc",
                                       "2025")
