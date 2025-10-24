@@ -3,7 +3,7 @@
 
 
 (define (script-fu-copy-layer-all)
-  (define images (vector->list (cadr (gimp-get-images))))
+  (define images (vector->list (car (gimp-get-images))))
   (map script-fu-copy-layer images)
   (gimp-displays-flush)
 )
@@ -12,13 +12,13 @@
 "1) Dupliquer toutes les images ouvertes garder l'original..."
 "Duplique le calque de TOUTES les images ouvertes, pour avoir un calque de travail \"Edit\" et une calque de reference \#Original\"\
 Le script verouille les calques en deplacement, et verouille le calque original pour le rendre non modifiable"
-"Sergeileduc"
-"Sergeileduc"
-"2018-08"
-"RGB*"
-;SF-IMAGE "Input Image" 0
-;SF-DRAWABLE "Current Layer" 0
+  "Sergeileduc"	                   ; author
+  "2018 Sergeileduc"               ; copyright notice
+  "2025-10"                        ;date created
+  "RGB* GRAY*"                     ; image types handled by script
+; SF-IMAGE "Input Image" 0
+; SF-DRAWABLE "Current Layer" 0
 )
 
-( script-fu-menu-register
-	"script-fu-copy-layer-all" "<Image>/DC-trad Traitement par lot/")
+(script-fu-menu-register
+  "script-fu-copy-layer-all" "<Image>/DC-trad Traitement par lot/")

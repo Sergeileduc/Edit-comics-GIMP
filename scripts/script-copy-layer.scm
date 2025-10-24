@@ -41,13 +41,13 @@
 "0) Dupliquer le calque image pour garder l'original..."
 "Duplique le calque image, pour avoir un calque de travail \"Edit\" et une calque de reference \#Original\"\
 Le script verouille les calques en deplacement, et verouille le calque original pour le rendre non modifiable"
-"Sergeileduc"
-"Sergeileduc"
-"2018-08"
-"RGB*"
-SF-IMAGE "Input Image" 0
-SF-DRAWABLE "Current Layer" 0
+  "Sergeileduc"	                   ; author
+  "2018 Sergeileduc"               ; copyright notice
+  "2025-10"                        ;date created
+  "RGB* GRAY*"                     ; image types handled by script
+  SF-IMAGE "Input Image" 0
+  SF-DRAWABLE "Current Layer" 0
 )
 
-( script-fu-menu-register
-	"script-fu-copy-layer" "<Image>/DC-trad/")
+(script-fu-menu-register
+  "script-fu-copy-layer" "<Image>/DC-trad/")
