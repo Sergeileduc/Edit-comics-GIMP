@@ -1,44 +1,44 @@
 (define (script-fu-clean-page image drawable)
 
-	;Prep
-	;(gimp-context-push)
-	(gimp-image-undo-group-start image)
+    ;Prep
+    ;(gimp-context-push)
+    (gimp-image-undo-group-start image)
 
     ;Context
     (gimp-context-set-paint-mode LAYER-MODE-NORMAL)
     (gimp-context-set-opacity 100)
 
-	(gimp-image-select-color image CHANNEL-OP-REPLACE drawable (car (gimp-context-get-background)))
-	(gimp-selection-invert image)
-	(gimp-selection-flood image)
-	(gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-background)))
+    (gimp-image-select-color image CHANNEL-OP-REPLACE drawable (car (gimp-context-get-background)))
+    (gimp-selection-invert image)
+    (gimp-selection-flood image)
+    (gimp-image-select-color image CHANNEL-OP-INTERSECT drawable (car (gimp-context-get-background)))
 
-	;Test si la sélection est vide
-	(if (= (car (gimp-selection-is-empty image)) FALSE)
-		(begin
-			;Enlève les trous la sélection
-			(gimp-selection-flood image)
-			(gimp-drawable-edit-fill drawable FILL-BACKGROUND)
-			(gimp-selection-none image)
-			(gimp-displays-flush)
-		);message d'erreur si selection vide
-		(gimp-message "Aucune sélection !\
+    ;Test si la sélection est vide
+    (if (= (car (gimp-selection-is-empty image)) FALSE)
+        (begin
+            ;Enlève les trous la sélection
+            (gimp-selection-flood image)
+            (gimp-drawable-edit-fill drawable FILL-BACKGROUND)
+            (gimp-selection-none image)
+            (gimp-displays-flush)
+        );message d'erreur si selection vide
+        (gimp-message "Aucune sélection !\
 Vérifiez la couleur d'arrière-plan ou utilisez des scripts avec un seuil plus grand (ou réglable)")
-	);end if
+    );end if
 
-	;Finish
-	(gimp-image-undo-group-end image)
-	;(gimp-context-pop)
+    ;Finish
+    (gimp-image-undo-group-end image)
+    ;(gimp-context-pop)
 
 )
 
 (script-fu-register "script-fu-clean-page"
 "TEST) Clean page"
 "Clean toutes les bulles de la page de la couleur de l'AP, en excluant les marges de l'algorithme."
-"Sergeileduc"
-"Sergeileduc"
-"2018-08"
-"RGB*"
-SF-IMAGE "Input Image" 0
-SF-DRAWABLE "Current Layer" 0
+    "Sergeileduc"	                   ; author
+    "2018 Sergeileduc"               ; copyright notice
+    "2025-10"                        ;date created
+    "RGB* GRAY*"                     ; image types handled by script
+    SF-IMAGE "Input Image" 0
+    SF-DRAWABLE "Current Layer" 0
 )
