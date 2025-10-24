@@ -3,7 +3,7 @@
 
 
 (define (script-fu-copy-layer-all)
-  (define images (vector->list (cadr (gimp-image-list))))
+  (define images (vector->list (cadr (gimp-get-images))))
   (map script-fu-copy-layer images)
   (gimp-displays-flush)
 )
