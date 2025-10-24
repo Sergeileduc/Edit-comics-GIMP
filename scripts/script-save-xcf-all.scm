@@ -4,12 +4,11 @@
 
 (define (script-fu-save-xcf-all)
   (let* ((images (vector->list (car (gimp-get-images)))))
-  (for-each
-    (lambda (img)
-      (python-fu-save-to-xcf RUN-NONINTERACTIVE img)
-      (newline))
-    images)
-
+    (for-each
+      (lambda (img)
+        (python-fu-save-to-xcf RUN-NONINTERACTIVE img))
+      images
+    )
   );end let
 );end define
 
