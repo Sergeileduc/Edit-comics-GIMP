@@ -9,17 +9,16 @@ Exemple :
     .../Mon dossier_XCF/Mon image.xcf
 """
 
-from pathlib import Path
 import sys
-
+from pathlib import Path
+import gettext
+from gi.repository import GLib  # pylint: disable=no-name-in-module
+from gi.repository import Gio  # pylint: disable=no-name-in-module
+from gi.repository import Gimp  # pylint: disable=no-name-in-module
 import gi
 gi.require_version('Gimp', '3.0')
-from gi.repository import Gimp  # pylint: disable=no-name-in-module
-from gi.repository import Gio  # pylint: disable=no-name-in-module
-from gi.repository import GLib  # pylint: disable=no-name-in-module
 
 
-import gettext
 _ = gettext.gettext
 def N_(message): return message  # noqa: E704
 
@@ -31,8 +30,7 @@ def clean_dirname(dirname):
     return dirname
 
 
-def save_to_xcf(procedure, run_mode, image, drawable, args, data):
-
+def save_to_xcf(image):
     current_file = image.get_file()  # only if saved in xc, None if imported
     if not current_file:
         current_file = image.get_imported_file()  # if imported in jpeg, etc...
@@ -58,13 +56,12 @@ def save_to_xcf(procedure, run_mode, image, drawable, args, data):
 
     image.clean_all()
 
-    return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
-
 
 class SaveToXCF(Gimp.PlugIn):
 
     def do_query_procedures(self):
-        return ['python-fu-save-to-xcf']  # Return procedure name, elsewhere this is "name"
+        # Return procedure name, elsewhere this is "name"
+        return ['python-fu-save-to-xcf']
 
     def do_set_i18n(self, name):
         return False
@@ -74,17 +71,22 @@ class SaveToXCF(Gimp.PlugIn):
         if name == 'python-fu-save-to-xcf':
             procedure = Gimp.ImageProcedure.new(self, name,
                                                 Gimp.PDBProcType.PLUGIN,
-                                                save_to_xcf, None)
+                                                self.run, None)
             procedure.set_image_types("RGB*, GRAY*")
             procedure.set_documentation(N_("Sauvegarde vers le dossier XCF (en xcf)"),
                                         globals()["__doc__"],
                                         name)
-            procedure.set_menu_label(N_("_6) Sauve vers le dossier \"-XCF\" (en xcf)"))
+            procedure.set_menu_label(
+                N_("_6) Sauve vers le dossier \"-XCF\" (en xcf)"))
             procedure.set_attribution("Sergeileduc",
                                       "Sergeileduc",
                                       "2025")
             procedure.add_menu_path("<Image>/DC-trad/Sauvegarder/")
         return procedure
+
+    def run(self, procedure, run_mode, image, drawables, config, run_data):
+        save_to_xcf(image)
+        return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
 
 
 Gimp.main(SaveToXCF.__gtype__, sys.argv)
