@@ -1,16 +1,16 @@
 (define (script-fu-clean-page-auto-5 image drawable)
 
-	;Prep
-	(gimp-context-push)
+    ;Prep
+    (gimp-context-push)
 
-	;On fixe le seuil de détection à 5
-	(gimp-context-set-sample-threshold-int 5)
+    ;On fixe le seuil de détection à 5
+    (gimp-context-set-sample-threshold-int 5)
 
-	;on lance le script clean page
-	(script-fu-clean-page image drawable)
+    ;on lance le script clean page
+    (script-fu-clean-page image drawable)
 
-	;Finish
-	(gimp-context-pop)
+    ;Finish
+    (gimp-context-pop)
 )
 
 ;Gimp register
@@ -20,14 +20,14 @@
 ...................\
 -Le seuil de tolérance à la couleur est fixée à 5.\
 Utilisez les scripts avec d'autres seuils en cas de problème"
-"Sergeileduc"
-"Sergeileduc"
-"2018-08"
-"RGB*"
-SF-IMAGE "Input Image" 0
-SF-DRAWABLE "Current Layer" 0
+    "Sergeileduc"	                   ; author
+    "2018 Sergeileduc"               ; copyright notice
+    "2025-10"                        ;date created
+    "RGB* GRAY*"                     ; image types handled by script
+    SF-IMAGE "Input Image" 0
+    SF-DRAWABLE "Current Layer" 0
 )
 ;Gimp menu register
 (script-fu-menu-register
-	"script-fu-clean-page-auto-5" "<Image>/DC-trad/"
+    "script-fu-clean-page-auto-5" "<Image>/DC-trad/"
 )
