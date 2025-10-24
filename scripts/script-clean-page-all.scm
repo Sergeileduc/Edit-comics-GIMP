@@ -3,30 +3,30 @@
 
 
 (define (script-fu-clean-page-all seuil)
-	;Prep
-	(gimp-context-push)
-	;On fixe le seuil de détection
-	(gimp-context-set-sample-threshold-int seuil)
+    ;Prep
+    (gimp-context-push)
+    ;On fixe le seuil de détection
+    (gimp-context-set-sample-threshold-int seuil)
 
-	(define images (vector->list (car (gimp-get-images))))
-	(map script-fu-clean-page images)
-	(gimp-displays-flush)
+    (define images (vector->list (car (gimp-get-images))))
+    (map script-fu-clean-page images)
+    (gimp-displays-flush)
 
-	;Finish
-	(gimp-context-pop)
+    ;Finish
+    (gimp-context-pop)
 )
 
 (script-fu-register "script-fu-clean-page-all"
 "2) Cleaner toutes les images ouvertes..."
 "Clean toutes les bulles de TOUTES les images ouvertes (de la couleur de l'AP)"
-"Sergeileduc"
-"Sergeileduc"
-"2025-09"
-"RGB*"
+    "Sergeileduc"	                   ; author
+    "2018 Sergeileduc"               ; copyright notice
+    "2025-10"                        ;date created
+    "RGB* GRAY*"                     ; image types handled by script
 ;SF-IMAGE "Input Image" 0
 ;SF-DRAWABLE "Current Layer" 0
 SF-ADJUSTMENT "Seuil de tolérance à la couleur d'AP" '(0 0 5 1 1 0 0)
 )
 
 ( script-fu-menu-register
-	"script-fu-clean-page-all" "<Image>/DC-trad Traitement par lot/")
+    "script-fu-clean-page-all" "<Image>/DC-trad Traitement par lot/")
