@@ -71,8 +71,6 @@ def save_to_edit(image):
     # Clean
     image.clean_all()
 
-    return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
-
 
 class SaveToEdit(Gimp.PlugIn):
     # Parameters #

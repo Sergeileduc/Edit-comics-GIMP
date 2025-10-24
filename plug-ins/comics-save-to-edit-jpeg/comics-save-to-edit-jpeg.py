@@ -9,17 +9,17 @@ Exemple :
     .../Mon dossier_EDIT/Mon image.jpg
 """
 
+import gettext
+from gi.repository import GLib  # pylint: disable=no-name-in-module
+from gi.repository import Gio  # pylint: disable=no-name-in-module
+from gi.repository import Gimp  # pylint: disable=no-name-in-module
 from pathlib import Path
 import sys
 
 import gi
 gi.require_version('Gimp', '3.0')
-from gi.repository import Gimp  # pylint: disable=no-name-in-module
-from gi.repository import Gio  # pylint: disable=no-name-in-module
-from gi.repository import GLib  # pylint: disable=no-name-in-module
 
 
-import gettext
 _ = gettext.gettext
 def N_(message): return message  # noqa: E704
 
@@ -31,7 +31,7 @@ def clean_dirname(dirname):
     return dirname
 
 
-def save_to_edit_jpeg(procedure, run_mode, image, drawable, args, data):
+def save_to_edit_jpeg(image):
 
     current_file = image.get_file()  # only if saved in xc, None if imported
     if not current_file:
@@ -61,13 +61,12 @@ def save_to_edit_jpeg(procedure, run_mode, image, drawable, args, data):
     # Clean
     image.clean_all()
 
-    return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
-
 
 class SaveToEditJpeg(Gimp.PlugIn):
 
     def do_query_procedures(self):
-        return ['python-fu-save-to-edit-jpeg']  # Return procedure name, elsewhere this is "name"
+        # Return procedure name, elsewhere this is "name"
+        return ['python-fu-save-to-edit-jpeg']
 
     def do_set_i18n(self, name):
         return False
@@ -77,17 +76,22 @@ class SaveToEditJpeg(Gimp.PlugIn):
         if name == 'python-fu-save-to-edit-jpeg':
             procedure = Gimp.ImageProcedure.new(self, name,
                                                 Gimp.PDBProcType.PLUGIN,
-                                                save_to_edit_jpeg, None)
+                                                self.run, None)
             procedure.set_image_types("RGB*, GRAY*")
             procedure.set_documentation(N_("Sauvegarde vers les dossiers Edit en jpeg uniquement"),
                                         globals()["__doc__"],
                                         name)
-            procedure.set_menu_label(N_("_8) Sauve vers le dossier \"-Edit\" en jpeg uniquement"))
+            procedure.set_menu_label(
+                N_("_8) Sauve vers le dossier \"-Edit\" en jpeg uniquement"))
             procedure.set_attribution("Sergeileduc",
                                       "Sergeileduc",
                                       "2025")
             procedure.add_menu_path("<Image>/DC-trad/Sauvegarder/")
         return procedure
+
+    def run(self, procedure, run_mode, image, drawables, config, run_data):
+        save_to_edit_jpeg(image)
+        return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
 
 
 Gimp.main(SaveToEditJpeg.__gtype__, sys.argv)
