@@ -33,7 +33,7 @@ def clean_dirname(dirname):
     return dirname
 
 
-def save_to_edit(procedure, run_mode, image, drawable, args, data):
+def save_to_edit(image):
 
     # fallback to imported file if not saved in xcf
     current_file = image.get_file() or image.get_imported_file()
@@ -90,7 +90,7 @@ class SaveToEdit(Gimp.PlugIn):
         if name == 'python-fu-save-to-edit':
             procedure = Gimp.ImageProcedure.new(self, name,
                                                 Gimp.PDBProcType.PLUGIN,
-                                                save_to_edit, None)
+                                                self.run, None)
             procedure.set_image_types("RGB*, GRAY*")
             procedure.set_documentation(N_("Sauvegarde vers les dossiers Edit et XCF"),
                                         globals()["__doc__"],
@@ -102,6 +102,10 @@ class SaveToEdit(Gimp.PlugIn):
                                       "2025")
             procedure.add_menu_path("<Image>/DC-trad/Sauvegarder/")
         return procedure
+
+    def run(self, procedure, run_mode, image, drawables, config, run_data):
+        save_to_edit(image)
+        return procedure.new_return_values(Gimp.PDBStatusType.SUCCESS, GLib.Error())
 
 
 Gimp.main(SaveToEdit.__gtype__, sys.argv)
