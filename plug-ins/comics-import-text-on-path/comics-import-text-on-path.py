@@ -347,103 +347,169 @@ class ImportTextOnPathPlugin(Gimp.PlugIn):
         if name != "sl-gimp-import-text-on-path":
             return None
 
-        procedure = Gimp.ImageProcedure.new(self, name,
-                                            Gimp.PDBProcType.PLUGIN,
-                                            self.run, None)
+        # Création d'une ImageProcedure
+        procedure = Gimp.ImageProcedure.new(
+            self,
+            name,
+            Gimp.PDBProcType.PLUGIN,
+            self.run,
+            None
+        )
+
         procedure.set_image_types("RGB*, GRAY*")
         procedure.set_menu_label("Importer un texte sur un chemin")
         procedure.set_documentation(
             "Importe le texte depuis un fichier et le place le long d'un chemin",
-            globals()["__doc__"],
+            "Plugin de test minimal",
             name
         )
         procedure.set_attribution("Sergeileduc", "Sergeileduc", "2025")
+
+        # Ajout d'un paramètre string
+        # procedure.add_argument_string(
+        #     "source_path",                # identifiant interne
+        #     "Fichier texte",              # label affiché
+        #     "Chemin du fichier texte",    # description
+        #     "C:/Users/serge/test.txt"     # valeur par défaut
+        # )
+
         procedure.add_menu_path("<Image>/DC-trad/")
-
-        # # Ajout des paramètres
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.string(
-        #         "source_path", "Fichier texte", "Chemin du fichier texte",
-        #         GObject.ParamFlags.READWRITE)
-        # )
-
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.int(
-        #         "page-index", "Page", "Numéro de page", GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.string(
-        #         "font", "Police", "Nom de la police", GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.int(
-        #         "fontunit-index", "Unité de taille", "Index d’unité", GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.double(
-        #         "font-size", "Taille", "Taille de la police", GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.boolean(
-        #         "antialias", "Lissage", "Antialiasing", GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.int(
-        #         "hintstyle-index", "Ajustement", "Style d’ajustement", GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.boxed(
-        #         "font-color", "Couleur", "Couleur du texte", Gimp.RGB, GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.int("justification-index", "Justification",
-        #                              "Justification du texte", GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.double("line-spacing", "Espacement lignes",
-        #                                 "Espacement entre les lignes", GObject.ParamFlags.READWRITE)
-        # )
-        # procedure.add_argument_from_property(
-        #     GObject.PropertySpec.double("letter-spacing", "Espacement lettres",
-        #                                 "Espacement entre les lettres", GObject.ParamFlags.READWRITE)
-        # )
-
         return procedure
 
-    def run(self, procedure, run_mode, image, drawables, config, run_data):
-        # source_path = args.index(0).get_string()
-        # page_index = args.index(1).get_int32()
-        # font = args.index(2).get_string()
-        # fontunit_index = args.index(3).get_int32()
-        # font_size = args.index(4).get_double()
-        # antialias = args.index(5).get_boolean()
-        # hintstyle_index = args.index(6).get_int32()
-        # font_color = args.index(7).get_rgb()
-        # justification_index = args.index(8).get_int32()
-        # line_spacing = args.index(9).get_double()
-        # letter_spacing = args.index(10).get_double()
-
-        # active_layer = drawables[0] if n_drawables > 0 else None
-
-        # plugin_import_text_layers_path_dctrad(
-        #     image=image,
-        #     active_layer=active_layer,
-        #     source_path=source_path,
-        #     page_index=page_index,
-        #     font=font,
-        #     fontunit_index=fontunit_index,
-        #     font_size=font_size,
-        #     antialias=antialias,
-        #     hintstyle_index=hintstyle_index,
-        #     font_color=font_color,
-        #     justification_index=justification_index,
-        #     line_spacing=line_spacing,
-        #     letter_spacing=letter_spacing
+        # procedure = Gimp.ImageProcedure.new(self, name,
+        #                                     Gimp.PDBProcType.PLUGIN,
+        #                                     self.run, None)
+        # procedure.set_image_types("RGB*, GRAY*")
+        # procedure.set_menu_label("Importer un texte sur un chemin")
+        # procedure.set_documentation(
+        #     "Importe le texte depuis un fichier et le place le long d'un chemin",
+        #     globals()["__doc__"],
+        #     name
         # )
-        Gimp.message("coucou")
+        # procedure.set_attribution("Sergeileduc", "Sergeileduc", "2025")
+
+        # procedure.add_argument_string(
+        #     "source_path",                # identifiant interne
+        #     "Fichier texte",              # label affiché
+        #     "Chemin du fichier texte",    # description
+        #     "C:/Users/serge/test.txt"     # valeur par défaut (non vide)
+        # )
+
+        # # procedure.add_argument_string(
+        # #     "source_path",
+        # #     "Fichier texte",
+        # #     "Chemin du fichier texte",
+        # #     "/tmp/test.txt"
+        # # )
+
+        # # procedure.add_font_argument("font", "_Font", "Font", True,
+        # #                             Gimp.Font.get_by_name("Serif"),
+        # #                             False,
+        # #                             GObject.ParamFlags.READWRITE)
+
+        # # Ajout des paramètres
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.string(
+        # #         "source_path", "Fichier texte", "Chemin du fichier texte",
+        # #         GObject.ParamFlags.READWRITE)
+        # # )
+
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.int(
+        # #         "page-index", "Page", "Numéro de page", GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.string(
+        # #         "font", "Police", "Nom de la police", GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.int(
+        # #         "fontunit-index", "Unité de taille", "Index d’unité", GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.double(
+        # #         "font-size", "Taille", "Taille de la police", GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.boolean(
+        # #         "antialias", "Lissage", "Antialiasing", GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.int(
+        # #         "hintstyle-index", "Ajustement", "Style d’ajustement", GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.boxed(
+        # #         "font-color", "Couleur", "Couleur du texte", Gimp.RGB, GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.int("justification-index", "Justification",
+        # #                              "Justification du texte", GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.double("line-spacing", "Espacement lignes",
+        # #                                 "Espacement entre les lignes", GObject.ParamFlags.READWRITE)
+        # # )
+        # # procedure.add_argument_from_property(
+        # #     GObject.PropertySpec.double("letter-spacing", "Espacement lettres",
+        # #                                 "Espacement entre les lettres", GObject.ParamFlags.READWRITE)
+        # # )
+
+        # procedure.add_menu_path("<Image>/DC-trad/")
+
+        # return procedure
+
+    # def run(self, procedure, run_mode, image, drawables, config, run_data):
+    #     # source_path = args.index(0).get_string()
+    #     # page_index = args.index(1).get_int32()
+    #     # font = args.index(2).get_string()
+    #     # fontunit_index = args.index(3).get_int32()
+    #     # font_size = args.index(4).get_double()
+    #     # antialias = args.index(5).get_boolean()
+    #     # hintstyle_index = args.index(6).get_int32()
+    #     # font_color = args.index(7).get_rgb()
+    #     # justification_index = args.index(8).get_int32()
+    #     # line_spacing = args.index(9).get_double()
+    #     # letter_spacing = args.index(10).get_double()
+
+    #     # active_layer = drawables[0] if n_drawables > 0 else None
+
+    #     # plugin_import_text_layers_path_dctrad(
+    #     #     image=image,
+    #     #     active_layer=active_layer,
+    #     #     source_path=source_path,
+    #     #     page_index=page_index,
+    #     #     font=font,
+    #     #     fontunit_index=fontunit_index,
+    #     #     font_size=font_size,
+    #     #     antialias=antialias,
+    #     #     hintstyle_index=hintstyle_index,
+    #     #     font_color=font_color,
+    #     #     justification_index=justification_index,
+    #     #     line_spacing=line_spacing,
+    #     #     letter_spacing=letter_spacing
+    #     # )
+    #     Gimp.message("coucou")
+
+    #     return procedure.new_return_values(
+    #         Gimp.PDBStatusType.SUCCESS, GLib.Error())
+
+    # def run(self, procedure, run_mode, image, drawables, config, run_data):
+    #     source_path = config.get_property("source_path")
+    #     Gimp.message(f"Chemin reçu : {source_path}")
+    #     return procedure.new_return_values(
+    #         Gimp.PDBStatusType.SUCCESS, GLib.Error())
+
+    def run(self, procedure, run_mode, image, drawables, config, run_data):
+        # Récupération du paramètre via config
+        # source_path = config.get_property("source_path")
+        Gimp.message("COUCOU")
+        # Gimp.message(f"Chemin reçu : {source_path}")
 
         return procedure.new_return_values(
-            Gimp.PDBStatusType.SUCCESS, GLib.Error())
+            Gimp.PDBStatusType.SUCCESS,
+            GLib.Error()
+        )
 
 
 Gimp.main(ImportTextOnPathPlugin.__gtype__, sys.argv)
