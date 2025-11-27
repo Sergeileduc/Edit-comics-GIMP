@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+
+# SI j'ai bien compris, PluginProcedure, au lieu de ImageProcedure, pour pouvoir passer des paramètres
+# et bah ça existe pas sur Windows.
+
 """
 This file is a Python plug-in for GIMP which imports text from a file
 into layers, on a path.
@@ -364,34 +368,39 @@ class ImportTextOnPathPlugin(Gimp.PlugIn):
         log("Création de la procédure…")
 
         try:
-            procedure = Gimp.Procedure.new(
-                self.run,
+            procedure = Gimp.ImageProcedure.new(
+                self,
                 name,
-                "Importer un texte sur un chemin",
-                "Importe le texte depuis un fichier et le place le long d'un chemin",
-                "Sergeileduc",
-                "2025",
-                "Importer texte sur chemin…",
-                "RGB*, GRAY*",
-                Gimp.PluginProcedure
+                Gimp.PDBProcType.PLUGIN,
+                self.run,
+                None
             )
+            procedure.set_image_types("RGB*, GRAY*")
+            procedure.set_menu_label("Importer un texte sur un chemin")
+            procedure.set_documentation(
+                "Importe le texte depuis un fichier et le place le long d'un chemin",
+                "Plugin minimal sans paramètres",
+                name
+            )
+            procedure.set_attribution("Sergeileduc", "Sergeileduc", "2025")
+
             log("Procedure créée OK")
         except Exception:
             log("ERREUR lors de la création de la procédure")
             traceback.print_exc(file=logfile)
             return None
 
-        try:
-            procedure.add_argument_string(
-                "source_path",
-                "Fichier texte",
-                "Chemin du fichier texte",
-                "C:/Users/serge/test.txt"
-            )
-            log("Argument ajouté OK")
-        except Exception:
-            log("ERREUR dans add_argument_string")
-            traceback.print_exc(file=logfile)
+        # try:
+        #     procedure.add_argument_string(
+        #         "source_path",
+        #         "Fichier texte",
+        #         "Chemin du fichier texte",
+        #         "C:/Users/serge/test.txt"
+        #     )
+        #     log("Argument ajouté OK")
+        # except Exception:
+        #     log("ERREUR dans add_argument_string")
+        #     traceback.print_exc(file=logfile)
 
         procedure.add_menu_path("<Image>/DC-trad/")
         return procedure
