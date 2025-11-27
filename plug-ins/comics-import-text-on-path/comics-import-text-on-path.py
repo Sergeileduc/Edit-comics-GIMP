@@ -6,6 +6,7 @@ into layers, on a path.
 """
 
 
+import traceback
 import re
 import codecs
 
@@ -19,6 +20,19 @@ import sys
 
 import gi
 gi.require_version('Gimp', '3.0')
+
+
+logfile = open("C:/Users/serge/plugin_debug.txt", "w", encoding="utf-8")
+sys.stderr = logfile
+sys.stdout = logfile
+
+
+def log(msg):
+    print(msg, file=logfile, flush=True)
+
+
+log("plugin démarre")
+
 
 
 _ = gettext.gettext
@@ -347,31 +361,37 @@ class ImportTextOnPathPlugin(Gimp.PlugIn):
         if name != "sl-gimp-import-text-on-path":
             return None
 
-        # Création d'une ImageProcedure
-        procedure = Gimp.ImageProcedure.new(
-            self,
-            name,
-            Gimp.PDBProcType.PLUGIN,
-            self.run,
-            None
-        )
+        log("Création de la procédure…")
 
-        procedure.set_image_types("RGB*, GRAY*")
-        procedure.set_menu_label("Importer un texte sur un chemin")
-        procedure.set_documentation(
-            "Importe le texte depuis un fichier et le place le long d'un chemin",
-            "Plugin de test minimal",
-            name
-        )
-        procedure.set_attribution("Sergeileduc", "Sergeileduc", "2025")
+        try:
+            procedure = Gimp.Procedure.new(
+                self.run,
+                name,
+                "Importer un texte sur un chemin",
+                "Importe le texte depuis un fichier et le place le long d'un chemin",
+                "Sergeileduc",
+                "2025",
+                "Importer texte sur chemin…",
+                "RGB*, GRAY*",
+                Gimp.PluginProcedure
+            )
+            log("Procedure créée OK")
+        except Exception:
+            log("ERREUR lors de la création de la procédure")
+            traceback.print_exc(file=logfile)
+            return None
 
-        # Ajout d'un paramètre string
-        # procedure.add_argument_string(
-        #     "source_path",                # identifiant interne
-        #     "Fichier texte",              # label affiché
-        #     "Chemin du fichier texte",    # description
-        #     "C:/Users/serge/test.txt"     # valeur par défaut
-        # )
+        try:
+            procedure.add_argument_string(
+                "source_path",
+                "Fichier texte",
+                "Chemin du fichier texte",
+                "C:/Users/serge/test.txt"
+            )
+            log("Argument ajouté OK")
+        except Exception:
+            log("ERREUR dans add_argument_string")
+            traceback.print_exc(file=logfile)
 
         procedure.add_menu_path("<Image>/DC-trad/")
         return procedure
