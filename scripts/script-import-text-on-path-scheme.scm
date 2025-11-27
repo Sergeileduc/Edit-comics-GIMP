@@ -35,7 +35,7 @@
   SF-DRAWABLE "Calque" 0
 ;   SF-FILE "Fichier texte" ""
 ;   SF-SPINNER "Numéro de page" 1 1 50 1
-;   SF-FONT "Police" "Sans"
+  SF-FONT "Police" "Sans"
 ;   SF-SPINNER "Taille de police" 27 1 200 1
   SF-COLOR "Couleur texte" '(0 0 0)
 ;   SF-OPTION "Justification" 2 '("Gauche" "Centre" "Droite" "Justifié")
