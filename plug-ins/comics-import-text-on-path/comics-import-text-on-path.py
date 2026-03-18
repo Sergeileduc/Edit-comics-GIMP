@@ -529,12 +529,21 @@ class ImportTextOnPathPlugin(Gimp.PlugIn):
     #     return procedure.new_return_values(
     #         Gimp.PDBStatusType.SUCCESS, GLib.Error())
 
-    def run(self, procedure, run_mode, image, drawables, config, run_data):
-        # Récupération du paramètre via config
-        # source_path = config.get_property("source_path")
-        Gimp.message("COUCOU")
-        # Gimp.message(f"Chemin reçu : {source_path}")
+    # def run(self, procedure, run_mode, image, drawables, config, run_data):
+    #     # Récupération du paramètre via config
+    #     # source_path = config.get_property("source_path")
+    #     Gimp.message("COUCOU")
+    #     # Gimp.message(f"Chemin reçu : {source_path}")
 
+    #     return procedure.new_return_values(
+    #         Gimp.PDBStatusType.SUCCESS,
+    #         GLib.Error()
+    #     )
+
+    def run(self, procedure, run_mode, image, drawables, config, run_data):
+        # Ici pas de paramètres, juste un message pour tester
+        Gimp.message(
+            "Plugin Python exécuté avec succès (ImageProcedure minimal)")
         return procedure.new_return_values(
             Gimp.PDBStatusType.SUCCESS,
             GLib.Error()
